@@ -10,9 +10,14 @@ import DayLabels from "../Components/Calendar/DayLabel"
 import Divider from "../Components/Divider"
 import Colors from "../Colors"
 import { Gesture, GestureDetector } from "react-native-gesture-handler"
-import Animated, { useSharedValue, withSpring } from "react-native-reanimated"
+import Animated, { useAnimatedStyle, useDerivedValue, useSharedValue, withSpring } from "react-native-reanimated"
+import { DEFAULT_ANIMATION_CONFIG } from "../Components/InfiniteSwiper/default"
+import { defaultPageInterpolator } from "../Components/InfiniteSwiper/types"
 
-const Pages = () =>
+const minIndex = -Infinity
+const maxIndex = Infinity
+
+const Pages = ({pageAnim}:{pageAnim: Animated.SharedValue<number>;}) =>
 {
   const { setCurPageDate, referenceDate } = useCalendarContext()
   return (
@@ -24,6 +29,7 @@ const Pages = () =>
         minIndex={-Infinity}
         maxIndex={Infinity}
         height={900}
+        pageAnim={pageAnim}
       />
       <View>
         <Text style={tw`text-[${ Colors.text.primary }]`}>{`TEST`}</Text>
@@ -47,53 +53,87 @@ const TestScreen = () =>
   const isVertical = useSharedValue(true)
   const pageWidth = useSharedValue(0)
 
-  const verticalPanGesture = Gesture.Pan()
+  const panGesture = Gesture.Pan()
     .onBegin(() => {
-      console.log("begin");
+      console.log("swiper onBegin ");
       startX.value = translateX.value;
       startY.value = translateY.value;
     })
     .onUpdate((evt) => {
-      console.log("update");
+      console.log("swiper onUpdate ", {directionChecked: directionChecked.value, isVertical: isVertical.value});
       // check if the user is scrolling horizontally or vertically
       if(!directionChecked.value){
         const deltaX = Math.abs(startX.value - evt.translationX);
         const deltaY = Math.abs(startY.value - evt.translationY);
-        isVertical.value = deltaY > deltaX;
-        console.log(isVertical.value);
+        isVertical.value = deltaY > deltaX
       }
-      // if the user is scrolling horizontally, do nothing
-      if(!isVertical.value) return;
+      directionChecked.value = true;
+      // if the user is scrolling horizontally, update the translateX value
+      if(!isVertical.value){
+        const rawVal = startX.value + evt.translationX;
+        const page = -rawVal / pageWidth.value;
+        if (page >= minIndex && page <= maxIndex) {
+          translateX.value = rawVal;
+        }  
+      }
       // if the user is scrolling vertically, update the translateY value
-      const rawVal = startY.value + evt.translationY;
-      translateY.value = rawVal;
-      console.log({translateY});
+      if(isVertical.value){
+        const rawVal = startY.value + evt.translationY;
+        translateY.value = rawVal;
+      }
     })
     .onEnd((evt) => {
-      translateX.value = evt.translationX;
-      translateY.value = evt.translationY;
+      // if the user is scrolling horizontally, snap to the nearest page
+      if(!isVertical.value){
+        const isFling = Math.abs(evt.velocityX) > 500;
+        let velocityModifier = isFling ? pageWidth.value / 2 : 0;
+        if (evt.velocityX < 0) velocityModifier *= -1;
+        let page = -1 * Math.round((translateX.value + velocityModifier) / pageWidth.value);
+        if (page < minIndex) page = minIndex;
+        if (page > maxIndex) page = maxIndex;
+        translateX.value = withSpring(-page * pageWidth.value, DEFAULT_ANIMATION_CONFIG);  
+      }
+      // if the user is scrolling vertically, reset the translateY value
+      if(isVertical.value){
+        translateY.value = evt.translationY;
+      }
       directionChecked.value = false; // reset the direction check
     })
 
+  const pageAnimInternal = useSharedValue(0);
+  const pageAnim = pageAnimInternal;
 
+  useDerivedValue(() => {
+    if (pageWidth.value)
+      pageAnim.value = (translateX.value / pageWidth.value) * -1
+  }, [pageAnim, translateX]);
+
+  const animStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        { translateY: translateY.value },
+      ],
+    };
+  }, [translateY]);
 
   return (
     <CalendarProvider>
       <GestureDetector
-        gesture={Gesture.Simultaneous(verticalPanGesture)}
+        gesture={Gesture.Simultaneous(panGesture)}
       >
-        <Animated.ScrollView
-          bounces={false}
+        <Animated.View
+          // bounces={false}
           onLayout={({ nativeEvent }) => {
               pageWidth.value = nativeEvent.layout.width
             }
           }
+          style={[animStyle]}
         >
           <Header />
           <DayLabels />
           <Divider />
-          <Pages />
-        </Animated.ScrollView>
+          <Pages pageAnim={pageAnim}/>
+        </Animated.View>
       </GestureDetector>
     </CalendarProvider>
   )

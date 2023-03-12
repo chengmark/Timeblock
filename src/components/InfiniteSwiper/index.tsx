@@ -66,7 +66,7 @@ const VirtualizedSwiper = (
   );
 
   const pageIndices = [...Array(pageBuffer * 2 + 1)].map((_, i) => {
-    const bufferIndex:number = i - pageBuffer;
+    const bufferIndex = i - pageBuffer;
     return curIndex - bufferIndex;
   });
 
@@ -89,28 +89,12 @@ const VirtualizedSwiper = (
   );
 
   const startX = useSharedValue(0);
-  const startY = useSharedValue(0);
-  const translateY = useSharedValue(0);
-  const directionChecked = useSharedValue(false);
-  const enabled = useSharedValue(true);
-  
+
   const panGesture = Gesture.Pan()
     .onBegin(() => {
-      console.log("swiper onBegin ");
       startX.value = translateX.value;
-      startY.value = translateY.value;
     })
     .onUpdate((evt) => {
-      console.log("swiper onUpdate ");
-      // check if the user is scrolling horizontally or vertically
-      if(!directionChecked.value){
-        const deltaX = Math.abs(startX.value - evt.translationX);
-        const deltaY = Math.abs(startY.value - evt.translationY);
-        enabled.value = deltaX > deltaY;
-      }
-      // if the user is scrolling vertically, don't do anything
-      if(!enabled.value) return;
-      // if the user is scrolling horizontally, update the translateX value
       const rawVal = startX.value + evt.translationX;
       const page = -rawVal / pageWidth.value;
       if (page >= minIndex && page <= maxIndex) {
@@ -126,10 +110,7 @@ const VirtualizedSwiper = (
       if (page > maxIndex) page = maxIndex;
 
       translateX.value = withSpring(-page * pageWidth.value, DEFAULT_ANIMATION_CONFIG);
-      translateY.value = evt.translationY;
-      directionChecked.value = false; // reset the direction check
     })
-    .enabled(enabled.value)
 
   return (
     <GestureDetector

@@ -17,7 +17,8 @@ const LABEL_BG_TRANSPARENTNESS = "0.2"
 const Colors = {
   "bg":{
     "primary":"#191919",
-    "secondary":"#202020"
+    "secondary":"#202020",
+    "withTransparentness": "#202020"+transparentnessMap[LABEL_BG_TRANSPARENTNESS]
   },
   "divider":"#2f2f2f", // or underlines
   "text":{
@@ -42,6 +43,7 @@ const Colors = {
     "900":"#191919",
     "1000":"#000000" // darkest
   },
+  "purple":"#a782c3",
   "label":{
     "blue":{
       "text":"#3281b0",
@@ -58,7 +60,7 @@ const Colors = {
   }
 }
 
-export type LabelColor = "blue" | "red" | "green"
+export type LabelColors = "blue" | "red" | "green"
 
 export const transparent = (transparentness:number, color: string) => color + Math.floor(transparentness * 255).toString()
 

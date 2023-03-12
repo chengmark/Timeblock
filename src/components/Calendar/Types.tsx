@@ -1,4 +1,4 @@
-import { LabelColor } from "../../Colors";
+import { LabelColors } from "../../Colors";
 
 
 export interface Task {
@@ -6,7 +6,7 @@ export interface Task {
   title: string;
   description: string;
   dueDate: Date;
-  color: LabelColor;
+  color: LabelColors;
 }
 
 export interface Event {
@@ -16,7 +16,7 @@ export interface Event {
   location: string;
   startDate: Date;
   endDate: Date;
-  color: LabelColor;
+  color: LabelColors;
 }
 
 export type CalendarItem = Task | Event;
