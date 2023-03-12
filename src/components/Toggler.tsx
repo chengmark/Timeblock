@@ -12,13 +12,13 @@ interface TogglerProps
   options: [string, string]
   activeColor: { bg: string, text: string }
   inactiveColor: { bg: string, text: string }
+  onPress?: [()=>void, ()=>void]
 }
 
 interface ToggleItmeProps
 {
   text: string
   active: boolean
-  // color: { bg: string, text: string }
   activeColor: { bg: string, text: string }
   inactiveColor: { bg: string, text: string }
   index: number
@@ -30,6 +30,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 const ToggleItem = ({ text, active, activeColor, inactiveColor, index, onPress }: ToggleItmeProps) =>
 {
   const progress = useSharedValue(0)
+  // remember the 2 colors should have the same channel length, [RGBA, RGB] is not allowed
   const wrapperAnimStyle = useAnimatedStyle(() => ({
     backgroundColor: interpolateColor(progress.value, [0, 0.5, 1], [activeColor.bg, inactiveColor.bg]),
     borderColor: interpolateColor(progress.value, [0, 1], [activeColor.text, inactiveColor.text])
@@ -64,7 +65,7 @@ const ToggleItem = ({ text, active, activeColor, inactiveColor, index, onPress }
   )
 }
 
-const Toggler = ({ options, activeColor, inactiveColor }: TogglerProps) =>
+const Toggler = ({ options, activeColor, inactiveColor, onPress }: TogglerProps) =>
 {
   const [active, setActive] = useState<string>(options[0])
 
@@ -73,20 +74,24 @@ const Toggler = ({ options, activeColor, inactiveColor }: TogglerProps) =>
       <ToggleItem
         index={0}
         text={options[0]}
-        // color={active === options[0] ? activeColor : inactiveColor}
         active={active == options[0]}
         activeColor={activeColor}
         inactiveColor={inactiveColor}
-        onPress={() => {console.log(`set active to ${options[0]}`);setActive(options[0])}}
+        onPress={() => {
+          onPress && onPress[0]();
+          console.log(`set active to ${options[0]}`);setActive(options[0])
+        }}
       />
       <ToggleItem
         index={1}
         text={options[1]}
-        // color={active === options[1] ? activeColor : inactiveColor}
         active={active == options[1]}
         activeColor={activeColor}
         inactiveColor={inactiveColor}
-        onPress={() => {console.log(`set active to ${options[1]}`);setActive(options[1])}}
+        onPress={() => {
+          onPress && onPress[1]();
+          console.log(`set active to ${options[1]}`);setActive(options[1])
+        }}
       />
     </View>
   )
