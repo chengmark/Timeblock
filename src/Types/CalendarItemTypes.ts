@@ -1,3 +1,5 @@
+import { LabelColors } from "../Colors";
+
 export interface CalendarEvent {
   id: string;
   title: string;
@@ -5,7 +7,8 @@ export interface CalendarEvent {
   location: string;
   startDate: Date;
   endDate: Date;
-  color: string;
+  color: LabelColors;
+  repeatMode: RepeatMode;
 }
 
 export interface CalendarTask {
@@ -13,7 +16,10 @@ export interface CalendarTask {
   title: string;
   description: string;
   dueDate: Date;
-  color: string;
+  color: LabelColors;
+  repeatMode: RepeatMode;
 }
 
 export type CalendarItem = CalendarEvent | CalendarTask;
+
+export type RepeatMode = "NO_REPEAT" | "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY"

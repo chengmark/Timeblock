@@ -7,7 +7,7 @@ import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withSprin
 import tw from 'twrnc'
 import Colors, { transparent } from '../Colors'
 
-interface TogglerProps
+interface ToggleProps
 {
   options: [string, string]
   activeColor: { bg: string, text: string }
@@ -65,7 +65,7 @@ const ToggleItem = ({ text, active, activeColor, inactiveColor, index, onPress }
   )
 }
 
-const Toggler = ({ options, activeColor, inactiveColor, onPress }: TogglerProps) =>
+const Toggle = ({ options, activeColor, inactiveColor, onPress }: ToggleProps) =>
 {
   const [active, setActive] = useState<string>(options[0])
 
@@ -97,4 +97,4 @@ const Toggler = ({ options, activeColor, inactiveColor, onPress }: TogglerProps)
   )
 }
 
-export default Toggler
+export default Toggle

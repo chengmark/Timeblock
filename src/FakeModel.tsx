@@ -1,4 +1,4 @@
-import { CalendarItem } from "./Components/Calendar/Types";
+import { CalendarItem } from "./Types/CalendarItemTypes"
 
 export const calendarItem:CalendarItem[] = [
   {
@@ -8,7 +8,8 @@ export const calendarItem:CalendarItem[] = [
     location: "Test",
     startDate: new Date(),
     endDate: new Date(),
-    color: "red"
+    color: "red",
+    repeatMode: "NO_REPEAT"
   },
   {
     id: "2",
@@ -17,7 +18,8 @@ export const calendarItem:CalendarItem[] = [
     location: "Test",
     startDate: new Date(),
     endDate: new Date(),
-    color: "blue"
+    color: "blue",
+    repeatMode: "NO_REPEAT"
   },
   {
     id: "3",
@@ -26,21 +28,24 @@ export const calendarItem:CalendarItem[] = [
     location: "Test",
     startDate: new Date(),
     endDate: new Date(),
-    color: "green"
+    color: "green",
+    repeatMode: "NO_REPEAT"
   },
   {
     id: "4",
     title: "Test",
     description: "Test",
     dueDate: new Date(),
-    color: "red"
+    color: "red",
+    repeatMode: "NO_REPEAT"
   },
   {
     id: "5",
     title: "Test",
     description: "Test",
     dueDate: new Date(),
-    color: "red"
+    color: "red",
+    repeatMode: "NO_REPEAT"
   },
   {
     id: "6",
@@ -49,7 +54,8 @@ export const calendarItem:CalendarItem[] = [
     location: "Test",
     startDate: new Date(2023, 2, 31),
     endDate: new Date(2023, 2, 31),
-    color: "red"
+    color: "red",
+    repeatMode: "NO_REPEAT"
   },
   {
     id: "7",
@@ -58,6 +64,7 @@ export const calendarItem:CalendarItem[] = [
     location: "Test",
     startDate: new Date(2023, 2, 31),
     endDate: new Date(2023, 2, 31),
-    color: "blue"
+    color: "blue",
+    repeatMode: "NO_REPEAT"
   },
 ]

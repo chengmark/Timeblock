@@ -10,11 +10,15 @@ import tw from 'twrnc'
 
 const Header = () => {
   const navigation = useNavigation()
-  const { color } = useCreateScreenContext()
+  const { color, submitInput } = useCreateScreenContext()
 
   const handleCancelPress = () =>
   {
     navigation.goBack()
+  }
+
+  const handleSubmitPress = () => {
+    submitInput()
   }
 
   return (
@@ -30,6 +34,7 @@ const Header = () => {
         Icon={AntDesign}
         name="check"
         color={Colors.label[color].text}
+        onPress={handleSubmitPress}
       />
     </View>
   )

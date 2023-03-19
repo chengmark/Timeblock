@@ -1,4 +1,4 @@
-import { View, Text } from "react-native"
+import { View, Text, Pressable } from "react-native"
 import LabeledField from "../Form/LabeledField"
 import Section from "./Section"
 
@@ -7,10 +7,16 @@ import DateBlock from "./DateBlock"
 import TimeBlock from "./TimeBlock"
 import SectionDivider from "../Form/SectionDivider"
 import Colors from "../../Colors"
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
+import IconButton from "../IconButton"
+import { useCreateScreenContext } from "../../Contexts/CreateScreenContext"
+import RepeatModeField from "./RepeatModeField"
 
-const DateTimeSection = () => (
-  <Section>
-    <LabeledField label="開始">
+const DateTimeSection = () =>
+{
+  return (
+    <Section>
+      <LabeledField label="開始">
         <View style={tw`flex-row`}>
           <DateBlock />
           <TimeBlock />
@@ -31,11 +37,10 @@ const DateTimeSection = () => (
           <TimeBlock />
         </View>
       </LabeledField>
-      <LabeledField label="重複">
-        <Text style={tw`text-base text-[${Colors.text.secondary}]`}>永不</Text>
-      </LabeledField>
-  </Section>
-
-)
+      <SectionDivider />
+      <RepeatModeField />
+    </Section>
+  )
+}
 
 export default DateTimeSection

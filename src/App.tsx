@@ -1,19 +1,19 @@
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar, View } from "react-native";
 import Colors from "./Colors";
-import TestScreen from './Screens/TestScreen';
 import CalendarScreen from './Screens/CalendarScreen';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 
 import tw from 'twrnc'
 import { createStackNavigator } from '@react-navigation/stack';
 import { RootStackParamList } from './Types/NavigationTypes';
-import ChatScreen from './Screens/SchedulerScreen';
 import SchedulerScreen from './Screens/SchedulerScreen';
 import CreateScreen from './Screens/CreateScreen';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import DayScreen from './Screens/DayScreen';
 
 
-const Stack =  createStackNavigator<RootStackParamList>()
+const RootStack =  createStackNavigator<RootStackParamList>()
 
 const theme = {
   ...DefaultTheme,
@@ -24,22 +24,26 @@ const App = () =>
 {
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={tw`flex-1 bg-[${ Colors.bg.primary }]`}>
-        <StatusBar barStyle="light-content" backgroundColor="#000"/>
-        <NavigationContainer
-          theme={theme}
-        >
-          <Stack.Navigator
-            screenOptions={{headerShown: false, presentation: 'modal'
-            }}
+      <BottomSheetModalProvider>
+        <SafeAreaView style={tw`flex-1 bg-[${ Colors.bg.primary }]`}>
+          <StatusBar barStyle="light-content" backgroundColor="#000"/>
+          <NavigationContainer
+            theme={theme}
           >
-            <Stack.Screen name="Calendar" component={CalendarScreen} />
-            <Stack.Screen name="Scheduler" component={SchedulerScreen} />
-            <Stack.Screen name="Create" component={CreateScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
-        {/* <TestScreen /> */}
-      </SafeAreaView>
+            <RootStack.Navigator
+              screenOptions={{
+                headerShown: false, presentation: 'modal'
+              }}
+            >
+              <RootStack.Screen name="Calendar" component={CalendarScreen} />
+              <RootStack.Screen name="Scheduler" component={SchedulerScreen} />
+              <RootStack.Screen name="Create" component={CreateScreen} />
+              <RootStack.Screen name="Day" component={DayScreen} initialParams={{calendarItems:[]}}/>
+            </RootStack.Navigator>
+          </NavigationContainer>
+          {/* <TestScreen /> */}
+        </SafeAreaView>
+      </BottomSheetModalProvider>
     </SafeAreaProvider>
   );
 }

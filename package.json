@@ -13,8 +13,9 @@
   "dependencies": {
     "@expo-google-fonts/roboto-mono": "^0.2.2",
     "@expo/webpack-config": "^18.0.1",
-    "@gorhom/bottom-sheet": "^4.4.5",
+    "@gorhom/bottom-sheet": "^4",
     "@react-navigation/native": "^6.1.4",
+    "@react-navigation/native-stack": "^6.9.12",
     "@react-navigation/stack": "^6.3.14",
     "date-fns": "^2.29.3",
     "expo": "^47.0.0",

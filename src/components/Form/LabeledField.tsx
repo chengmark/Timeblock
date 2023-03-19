@@ -8,7 +8,7 @@ const LabeledField = ({ label, children }: { label: string, children: React.Reac
 {
   return (
     <View style={tw`my-2 mx-4 flex-row`}>
-      <View style={tw`flex-row justify-between flex-1`}>
+      <View style={tw`flex-row justify-between flex-1 items-center`}>
         <Text style={tw`text-[${ Colors.text.primary }] text-base`}>
           {label}
         </Text>

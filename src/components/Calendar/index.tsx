@@ -14,7 +14,7 @@ import Page from "./Page"
 
 const {header, dayLabels, footer} = Layout.calendarScreen
 const screenHeight = Dimensions.get('window').height
-const swiperHeight = screenHeight - header - dayLabels - footer - Layout.statusbar
+const swiperHeight = screenHeight - Layout.statusbar - header - dayLabels - footer
 
 const Pages = () => {
   const {setCurPageDate, referenceDate} = useCalendarContext()
