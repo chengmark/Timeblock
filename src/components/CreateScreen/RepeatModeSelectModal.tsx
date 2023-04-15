@@ -8,7 +8,6 @@ import IconButton from "../IconButton"
 import AntDesign from "react-native-vector-icons/AntDesign"
 import { RepeatMode } from "../../Types/CalendarItemTypes"
 import { REPEAT_MODE } from "../../constants"
-import Divider from "../Divider"
 
 export interface RepeatModeSelectModalImperativeAPI
 {
@@ -47,7 +46,7 @@ const RepeatModeSelectModal = forwardRef((props, ref: ForwardedRef<RepeatModeSel
   return (
     <BottomSheetModal
       ref={internalRef}
-      snapPoints={["75%"]}
+      snapPoints={["60%"]}
       backdropComponent={renderBackdrop}
       index={0}
       style={tw`bg-[${ Colors.bg.primary }]`}

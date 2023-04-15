@@ -16,6 +16,7 @@ import TagSection from "../Components/CreateScreen/TagSection"
 import TagSelectModal from "../Components/CreateScreen/TagSelectModal"
 import withProvider from "../Hoc/withProvider"
 import RepeatSelectModal from "../Components/CreateScreen/RepeatModeSelectModal"
+import DateTimePickerModal from "../Components/CreateScreen/DateTimeSelectModal"
 
 //TODO: description section, color selection section
 const TimeSection = () => {
@@ -70,7 +71,7 @@ const TimeSection = () => {
 
 const CreateScreen = () =>
 {
-  const {tagSelectModalRef, repeatModeSelectModalRef} = useCreateScreenContext()
+  const {tagSelectModalRef, repeatModeSelectModalRef, dateTimePickerModalRef} = useCreateScreenContext()
 
   return (
     <View style={tw`flex-col bg-[${ Colors.bg.primary }] h-full pt-4 px-4`}>
@@ -85,6 +86,9 @@ const CreateScreen = () =>
       />
       <RepeatSelectModal
         ref={repeatModeSelectModalRef}
+      />
+      <DateTimePickerModal
+        ref={dateTimePickerModalRef}
       />
     </View>
   )

@@ -1,6 +1,6 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet"
-import { createContext, ReactElement, Ref, RefObject, useContext, useRef, useState } from "react"
-import Colors, { LabelColors } from "../Colors"
+import { createContext, ReactElement, RefObject, useContext, useRef, useState } from "react"
+import { LabelColors } from "../Colors"
 import { TagSelectModalImperativeAPI } from "../Components/CreateScreen/TagSelectModal"
 import { CalendarItem } from "../Types/CalendarItemTypes"
 
@@ -9,9 +9,9 @@ const DEFAULT_ITEM_INPUT:CalendarItem = {
   title: "",
   description: "",
   location: "",
-  startDate: new Date(),
-  endDate: new Date(),
-  dueDate: new Date(),
+  startDate: new Date().toISOString(),
+  endDate: new Date().toISOString(),
+  dueDate: new Date().toISOString(),
   color: "blue",
   repeatMode: "NO_REPEAT",
 }
@@ -27,16 +27,18 @@ const CreateScreenContext = createContext({
   setInputType: (type: "event" | "task") => {},
   submitInput: () => {},
   tagSelectModalRef: null as RefObject<TagSelectModalImperativeAPI> | null,
-  repeatModeSelectModalRef: null as RefObject<BottomSheetModal> | null
+  repeatModeSelectModalRef: null as RefObject<BottomSheetModal> | null,
+  dateTimePickerModalRef: null as RefObject<BottomSheetModal> | null
 })
 
 export const CreateScreenProvider = ({children}:{children: ReactElement}) => {
   const [active, setActive] = useState<boolean>(false)
-  const [color, setColor] = useState<LabelColors>("blue") //TODO: rename
+  const [color, setColor] = useState<LabelColors>("green") //TODO: rename color to sth else
   const [itemInput, setItemInput] = useState<CalendarItem>(DEFAULT_ITEM_INPUT)
   const [inputType, setInputType] = useState<"event" | "task">("event")
   const tagSelectModalRef = useRef<TagSelectModalImperativeAPI>(null)
   const repeatModeSelectModalRef = useRef<BottomSheetModal>(null)
+  const dateTimePickerModalRef = useRef<BottomSheetModal>(null)
   
   const submitInput = () => {
     console.log(itemInput)
@@ -54,7 +56,8 @@ export const CreateScreenProvider = ({children}:{children: ReactElement}) => {
         setInputType,
         submitInput,
         tagSelectModalRef,
-        repeatModeSelectModalRef
+        repeatModeSelectModalRef,
+        dateTimePickerModalRef
       }}
     >
       {children}

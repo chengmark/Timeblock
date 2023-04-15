@@ -1,10 +1,11 @@
 import { StyleProp, View } from "react-native"
+import { IconProps } from "react-native-vector-icons/Icon"
 import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons"
 
 import tw from 'twrnc'
 import Colors from "../Colors"
 // this is a custom icon component
-const StarIcon = ({style, color}:{style?:StyleProp<any>, color?:string}) => {
+const StarIcon = ({style, color}:IconProps) => {
   return (
     <View
       style={[

@@ -1,6 +1,6 @@
 import { createContext, ReactElement, useContext, useState } from "react";
-import { calendarItem } from "../../FakeModel";
-import { CalendarItem } from "./Types";
+import { calendarItem } from "../../Mock/CalendarItems";
+import { CalendarItem } from "../../Types/CalendarItemTypes";
 
 export const CalendarContext = createContext({
   referenceDate: new Date(),

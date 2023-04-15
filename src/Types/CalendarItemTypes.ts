@@ -5,8 +5,8 @@ export interface CalendarEvent {
   title: string;
   description: string;
   location: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   color: LabelColors;
   repeatMode: RepeatMode;
 }
@@ -15,7 +15,7 @@ export interface CalendarTask {
   id: string;
   title: string;
   description: string;
-  dueDate: Date;
+  dueDate: string;
   color: LabelColors;
   repeatMode: RepeatMode;
 }

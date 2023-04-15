@@ -1,11 +1,8 @@
-import { MotiText, MotiView } from 'moti'
-import { MotiPressable } from 'moti/interactions'
-import { useDebugValue, useEffect, useRef, useState } from 'react'
-import { View, Text, Pressable, TouchableOpacity, TouchableHighlight } from 'react-native'
-import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated'
+import { useEffect, useState } from 'react'
+import { View, Pressable } from 'react-native'
+import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import tw from 'twrnc'
-import Colors, { transparent } from '../Colors'
 
 interface ToggleProps
 {
@@ -79,7 +76,6 @@ const Toggle = ({ options, activeColor, inactiveColor, onPress }: ToggleProps) =
         inactiveColor={inactiveColor}
         onPress={() => {
           onPress && onPress[0]();
-          console.log(`set active to ${options[0]}`);setActive(options[0])
         }}
       />
       <ToggleItem
@@ -90,7 +86,6 @@ const Toggle = ({ options, activeColor, inactiveColor, onPress }: ToggleProps) =
         inactiveColor={inactiveColor}
         onPress={() => {
           onPress && onPress[1]();
-          console.log(`set active to ${options[1]}`);setActive(options[1])
         }}
       />
     </View>

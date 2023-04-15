@@ -9,7 +9,7 @@ const DayLabels: React.FC = () => {
   const labels = ['日', '一', '二', '三', '四', '五', '六'];
 
   return (
-    <View style={tw`flex-row justify-between items-center py-1 bg-[${Colors.bg.primary}]`}>
+    <View style={tw`flex-row justify-between items-center py-1 bg-[${Colors.bg.primary}] h-[24px]`}>
       {labels.map((label, index) => (
         <View key={index} style={tw`flex-1 items-center`}>
           <Text

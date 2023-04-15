@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import { View, Text, ScrollView, FlatList } from 'react-native'
+import { View, Text } from 'react-native'
 
 import tw from 'twrnc'
 import Colors from '../Colors'
 import Divider from '../Components/Divider'
-import MessageBlock from '../Components/MessageBlock'
 import MessageInput from '../Components/MessageInput'
 import WelcomingPrompt from '../Components/Scheduler/WelcomingPrompt'
 import StarIcon from '../Components/StarIcon'

@@ -4,7 +4,7 @@ import { View, Text, Pressable } from 'react-native'
 import tw from 'twrnc'
 import Colors from '../../Colors'
 import { RootStackParamList } from '../../Types/NavigationTypes'
-import { isSameDay } from '../utils'
+import { compareCalendarItems, isSameDay } from '../utils'
 import { useCalendarContext } from './context'
 
 interface DayProps
@@ -17,16 +17,17 @@ interface DayProps
 const Day = ({ day, isToday, firstDayOfMonth }: DayProps) =>
 {
   const { calendarItems } = useCalendarContext()
-  const itemsOfDay = calendarItems.filter(item => isSameDay(item, day))
+  const itemsOfDay = calendarItems.filter(item => isSameDay(item, day)).sort(compareCalendarItems)
+
   const navigation = useNavigation<NavigationProp<RootStackParamList>>()
   const handleOnPress = () =>
   {
-    navigation.navigate("Day", {calendarItems: itemsOfDay})
+    navigation.navigate("Day", {calendarItems: itemsOfDay, day: day.toISOString()})
   }
   return (
     <Pressable
       onPress={handleOnPress}
-      style={tw`flex-1 items-center flex-col`}
+      style={tw`flex-1 items-center flex-col overflow-hidden`}
     >
       <View style={tw`rounded-full w-6 h-6 justify-center items-center ${ isToday ? `bg-red-500 font-bold` : '' }`}>
         <Text

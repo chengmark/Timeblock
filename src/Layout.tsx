@@ -3,7 +3,7 @@ export const toRem = (px:number):number => px / 16
 const Layout = {
   calendarScreen: {
     header: 64,
-    dayLabels: 26,
+    dayLabels: 32,
     footer: 48,
   },
   schedulerScreen: {

@@ -1,10 +1,10 @@
-import { ScrollView, View, Text, NativeSyntheticEvent, NativeScrollEvent, NativeTouchEvent } from "react-native"
+import { View, Text } from "react-native"
 import { CalendarProvider, useCalendarContext } from "../Components/Calendar/context"
 import Page from "../Components/Calendar/Page"
 import InfiniteSwiper from "../Components/InfiniteSwiper"
-import tw, { useDeviceContext } from 'twrnc'
+import tw from 'twrnc'
 import { addMonths } from "date-fns"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import Header from "../Components/Calendar/Header"
 import DayLabels from "../Components/Calendar/DayLabel"
 import Divider from "../Components/Divider"
@@ -12,7 +12,6 @@ import Colors from "../Colors"
 import { Gesture, GestureDetector } from "react-native-gesture-handler"
 import Animated, { useAnimatedStyle, useDerivedValue, useSharedValue, withSpring } from "react-native-reanimated"
 import { DEFAULT_ANIMATION_CONFIG } from "../Components/InfiniteSwiper/default"
-import { defaultPageInterpolator } from "../Components/InfiniteSwiper/types"
 
 const minIndex = -Infinity
 const maxIndex = Infinity
@@ -29,7 +28,6 @@ const Pages = ({pageAnim}:{pageAnim: Animated.SharedValue<number>;}) =>
         minIndex={-Infinity}
         maxIndex={Infinity}
         height={900}
-        pageAnim={pageAnim}
       />
       <View>
         <Text style={tw`text-[${ Colors.text.primary }]`}>{`TEST`}</Text>

@@ -1,5 +1,6 @@
 {
   "expo": {
+    "owner": "markc1211",
     "name": "Timeblock",
     "slug": "Timeblock",
     "version": "1.0.0",
@@ -18,7 +19,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.markc1211.Timeblock"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,6 +30,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e1080bc2-89a9-4b2d-add2-49268adb65cc"
+      }
     }
   }
 }

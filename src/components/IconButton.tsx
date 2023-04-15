@@ -1,5 +1,5 @@
 import React, { useState, ComponentType } from "react"
-import { ColorValue, Pressable, StyleProp, View, ViewProps } from "react-native"
+import { ColorValue, Pressable, StyleProp } from "react-native"
 import { IconProps } from "react-native-vector-icons/Icon"
 import tw from 'twrnc'
 

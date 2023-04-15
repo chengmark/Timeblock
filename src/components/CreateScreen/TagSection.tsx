@@ -1,4 +1,4 @@
-import { View, Text, Modal, Pressable } from "react-native"
+import { View, Text, Pressable } from "react-native"
 import Section from "./Section"
 
 import tw from 'twrnc'
@@ -7,6 +7,7 @@ import IconButton from "../IconButton"
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import Tag from "../Tag"
 import { useCreateScreenContext } from "../../Contexts/CreateScreenContext"
+import { TAG_COLOR } from "../../constants"
 
 const TagSection = () =>
 {
@@ -27,7 +28,7 @@ const TagSection = () =>
               標籤
             </Text>
             <View style={tw`flex-row items-center`}>
-              <Tag title={color.toUpperCase()} color={Colors.label[color]} />
+              <Tag title={TAG_COLOR[color]} color={Colors.label[color]} />
               <IconButton
                 style={tw`p-0 m-0`}
                 Icon={MaterialIcon}

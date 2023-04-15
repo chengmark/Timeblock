@@ -74,7 +74,7 @@ const VirtualizedSwiper = (
     if (pageWidth.value)
       pageAnim.value = (translateX.value / pageWidth.value) * -1
   }, [pageAnim, translateX]);
-
+  
   function onPageChangeInternal(pg: number) {
     onPageChange?.(pg);
     setCurIndex(pg);

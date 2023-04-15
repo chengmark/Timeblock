@@ -1,11 +1,10 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 import tw from 'twrnc';
-import { format, isSameMonth, startOfMonth } from 'date-fns';
+import { format } from 'date-fns';
 import Colors from '../../Colors';
 import { useCalendarContext } from './context';
 import IconButton from '../IconButton';
-import AntIcon from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Layout from '../../Layout';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
@@ -39,7 +38,6 @@ const Header: React.FC<HeaderProps> = ({ }) =>
           backgroundColor={Colors.label.blue.bg}
           activeColor={Colors.label.blue.text + "55"}
         />
-
       </View>
       {/* {isToday && (
         <TouchableOpacity onPress={onTodayPress}>

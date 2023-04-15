@@ -6,13 +6,12 @@ import Colors, { LabelColors } from "../../Colors"
 import { useCreateScreenContext } from "../../Contexts/CreateScreenContext"
 import IconButton from "../IconButton"
 import AntDesign from "react-native-vector-icons/AntDesign"
-import Tag from "../Tag"
 import { TAG_COLOR } from "../../constants"
+import { SelectModalImperativeAPI } from "../../Types/NavigationTypes"
 
-export interface TagSelectModalImperativeAPI
+export interface TagSelectModalImperativeAPI extends SelectModalImperativeAPI
 {
-  present: () => void
-  dismiss: () => void
+  
 }
 
 const TagSelectModal = forwardRef((props, ref: ForwardedRef<TagSelectModalImperativeAPI>) =>
@@ -46,7 +45,7 @@ const TagSelectModal = forwardRef((props, ref: ForwardedRef<TagSelectModalImpera
   return (
     <BottomSheetModal
       ref={internalRef}
-      snapPoints={["85%"]}
+      snapPoints={["60%"]}
       backdropComponent={renderBackdrop}
       index={0}
       style={tw`bg-[${ Colors.bg.primary }]`}

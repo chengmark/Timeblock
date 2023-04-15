@@ -6,9 +6,6 @@ import tw from 'twrnc'
 import DateBlock from "./DateBlock"
 import TimeBlock from "./TimeBlock"
 import SectionDivider from "../Form/SectionDivider"
-import Colors from "../../Colors"
-import IconButton from "../IconButton"
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { useCreateScreenContext } from "../../Contexts/CreateScreenContext"
 import RepeatModeField from "./RepeatModeField"
 

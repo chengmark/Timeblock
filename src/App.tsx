@@ -1,19 +1,22 @@
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
-import { StatusBar, View } from "react-native";
+import { StatusBar } from "react-native";
 import Colors from "./Colors";
 import CalendarScreen from './Screens/CalendarScreen';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 
 import tw from 'twrnc'
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './Types/NavigationTypes';
 import SchedulerScreen from './Screens/SchedulerScreen';
 import CreateScreen from './Screens/CreateScreen';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import DayScreen from './Screens/DayScreen';
+import FinanceScreen from './Screens/FinanceScreen';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Footer from './Components/Footer';
 
-
-const RootStack =  createStackNavigator<RootStackParamList>()
+const RootStack =  createNativeStackNavigator<RootStackParamList>()
+const Tab = createBottomTabNavigator()
 
 const theme = {
   ...DefaultTheme,
@@ -30,16 +33,29 @@ const App = () =>
           <NavigationContainer
             theme={theme}
           >
-            <RootStack.Navigator
+            <Tab.Navigator
               screenOptions={{
-                headerShown: false, presentation: 'modal'
+              headerShown: false
               }}
+              initialRouteName="Calendar"
+              tabBar={Footer}
             >
-              <RootStack.Screen name="Calendar" component={CalendarScreen} />
-              <RootStack.Screen name="Scheduler" component={SchedulerScreen} />
-              <RootStack.Screen name="Create" component={CreateScreen} />
-              <RootStack.Screen name="Day" component={DayScreen} initialParams={{calendarItems:[]}}/>
-            </RootStack.Navigator>
+              <Tab.Screen name="Calendar" component={CalendarScreen} />
+              <Tab.Screen name="Finance" component={FinanceScreen} />
+            </Tab.Navigator>
+            {/* <Tab.Navigator
+              screenOptions={{
+                headerShown: false,
+              }}
+              initialRouteName="Calendar"
+              tabBar={Footer}
+            >
+              <Tab.Screen name="Calendar" component={CalendarScreen} />
+              <Tab.Screen name="Scheduler" component={SchedulerScreen} />
+              <Tab.Screen name="Create" component={CreateScreen} />
+              <Tab.Screen name="Day" component={DayScreen} initialParams={{calendarItems:[]}}/>
+              <Tab.Screen name="Finance" component={FinanceScreen} />
+            </Tab.Navigator> */}
           </NavigationContainer>
           {/* <TestScreen /> */}
         </SafeAreaView>

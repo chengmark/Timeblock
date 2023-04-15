@@ -1,5 +1,5 @@
 
-import { isSameMonth, isToday } from 'date-fns';
+import { isToday } from 'date-fns';
 import { View } from 'react-native';
 import tw from 'twrnc'
 import Day from './Day';
