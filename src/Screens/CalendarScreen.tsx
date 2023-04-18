@@ -1,14 +1,12 @@
-import { View } from "react-native";
-import Calendar from "../Components/Calendar";
-
 import tw from 'twrnc'
+import Screen from '../Components/Screen'
 
 const CalendarScreen = () => {
   return (
-    <View style={tw`flex-1`}>
-      <Calendar />
-    </View>
+    <Screen>
+      
+    </Screen>
   )
 }
 
-export default CalendarScreen;
+export default CalendarScreen

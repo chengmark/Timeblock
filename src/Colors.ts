@@ -1,67 +1,58 @@
 // get the color scheme from iOS calendar app
 const transparentnessMap = {
-  "0.1":"25", // 0.1 * 255 = 25
-  "0.2":"33", // 0.2 * 255 = 51
-  "0.3":"4c", // 0.3 * 255 = 76
-  "0.4":"66", // 0.4 * 255 = 102
-  "0.5":"7f", // 0.5 * 255 = 127
-  "0.6":"99", // 0.6 * 255 = 153
-  "0.7":"b2", // 0.7 * 255 = 178
-  "0.8":"cc", // 0.8 * 255 = 204
-  "0.9":"e5", // 0.9 * 255 = 229
-  "1":"ff" // 1 * 255 = 255
-}
+  '0.1': '25', // 0.1 * 255 = 25
+  '0.2': '33', // 0.2 * 255 = 51
+  '0.3': '4c', // 0.3 * 255 = 76
+  '0.4': '66', // 0.4 * 255 = 102
+  '0.5': '7f', // 0.5 * 255 = 127
+  '0.6': '99', // 0.6 * 255 = 153
+  '0.7': 'b2', // 0.7 * 255 = 178
+  '0.8': 'cc', // 0.8 * 255 = 204
+  '0.9': 'e5', // 0.9 * 255 = 229
+  '1': 'ff', // 1 * 255 = 255
+};
 
-const LABEL_BG_TRANSPARENTNESS = "0.2"
+const LABEL_BG_TRANSPARENTNESS = '0.2';
 
-const Colors = {
-  "bg":{
-    "primary":"#191919",
-    "secondary":"#202020",
-    "withTransparentness": "#202020"+transparentnessMap[LABEL_BG_TRANSPARENTNESS]
+const COLORS = {
+  blue: '#0A84FF',
+  brown: '#AC8E68',
+  cyan: '#64D2FF',
+  green: '#30D158',
+  indigo: '#5E5CE6',
+  mint: '#66D4CF',
+  orange: '#FF9F0A',
+  pink: '#FF375F',
+  purple: '#BF5AF2',
+  red: '#FF453A',
+  teal: '#40C8E0',
+  yellow: '#FFD60A',
+  grey: {
+    100: '#8E8E93',
+    200: '#636366',
+    300: '#48484A',
+    400: '#3A3A3C',
+    500: '#2C2C2E',
+    600: '#1C1C1E',
   },
-  "divider":"#2f2f2f", // or underlines
-  "text":{
-    "primary":"#d4d4d4",
-    "secondary":"#7f7f7f"
+  label: {
+    100: '#FFFFFF',
+    200: '#C8C8C8',
+    300: '#989898',
   },
-  "feedback":{
-    "info":"#26A8FF",
-    "success":"#1EE46D",
-    "warning":"#FDE111",
-    "danger":"#F83535"
+  fill: "#CECED1",
+  placeholder: '#F8F8FC',
+  background: {
+    100: '#000000',
+    200: '#1C1C1E',
+    300: '#2C2C2E',
+    400: '#3C3C3E',
   },
-  "neutral":{
-    "100":"#FFFFFF", // lightest
-    "200":"#d4d4d4",
-    "300":"#868686",
-    "400":"#7f7f7f",
-    "500":"#2f2f2f",
-    "600":"#2f2f2f",
-    "700":"#252525",
-    "800":"#202020",
-    "900":"#191919",
-    "1000":"#000000" // darkest
-  },
-  "purple":"#a782c3",
-  "label":{
-    "blue":{
-      "text":"#3281b0",
-      "bg":"#3281b0"+transparentnessMap[LABEL_BG_TRANSPARENTNESS],
-    },
-    "red":{
-      "text":"#983f3c",
-      "bg":"#983f3c"+transparentnessMap[LABEL_BG_TRANSPARENTNESS],
-    },
-    "green":{
-      "text":"#319a71",
-      "bg":"#319a71"+transparentnessMap[LABEL_BG_TRANSPARENTNESS],
-    }
-  }
-}
+  separator: '#98989B',
+  opaqueSeparator: '#38383A',
+  link: '#0B84FF',
+};
 
-export type LabelColors = "blue" | "red" | "green"
+export default COLORS;
 
-export const transparent = (transparentness:number, color: string) => color + Math.floor(transparentness * 255).toString()
-
-export default Colors
+export const transparent = (transparentness: number, color: string) => color + Math.floor(transparentness * 255).toString();
