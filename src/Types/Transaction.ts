@@ -1,20 +1,10 @@
-export interface Expense {
+export interface Transaction {
   amount: number;
   title: string;
   description?: string;
   date: string;
-  category: ExpenseCategory;
+  category: IncomeCategory | ExpenseCategory;
 }
-
-export interface Income {
-  amount: number;
-  title: string;
-  description?: string;
-  date: string;
-  category: IncomeCategory;
-}
-
-export type Transaction = Expense | Income;
 
 export interface Budget {
   category: ExpenseCategory;

@@ -1,10 +1,17 @@
 import { useNavigation } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useEffect } from 'react'
-import AddTransactionScreen from './FinanceScreen/AddTransactionScreen'
-import FinanceScreen from './FinanceScreen/FinanceScreen'
+import { Transaction } from '../../Types/Transaction'
+import FinanceScreen from './FinanceScreen'
 
-const Stack = createNativeStackNavigator()
+export interface FinanceStackParamList{
+  FinanceHome: undefined
+  // AddTransaction: undefined
+  // TransactionDetails: {transaction: Transaction}
+  // Day:{calendarItems:CalendarItem[], day: string} | undefined
+}
+
+const Stack = createNativeStackNavigator<FinanceStackParamList>()
 
 const FinanceRouter = () => {
   const navigation = useNavigation()
@@ -28,7 +35,8 @@ const FinanceRouter = () => {
       initialRouteName="FinanceHome"
     >
       <Stack.Screen name="FinanceHome" component={FinanceScreen} />
-      <Stack.Screen name="AddTransaction" component={AddTransactionScreen} />
+      {/* <Stack.Screen name="AddTransaction" component={AddTransactionScreen} /> */}
+      {/* <Stack.Screen name="TransactionDetails" component={TransactionDetailsScreen} /> */}
     </Stack.Navigator>
   )
 }

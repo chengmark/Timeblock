@@ -22,11 +22,13 @@ export const TAG_COLOR = {
 }
 
 export const FONT_SIZE = {
-  xs: 14,
-  s: 16,
-  m: 18,
-  l: 20,
-  xl: 24,
+  xs: 10,
+  s: 12,
+  m: 14,
+  l: 16,
+  xl: 18,
+  xxl: 20,
+  xxxl: 22
 }
 
 export interface IconObject {
@@ -83,7 +85,7 @@ export const CATEGORY_ICON_MAP:Record<(ExpenseCategory | IncomeCategory), IconOb
   },
   Benefits: {
     Icon: MaterialCommunityIcon,
-    name: "cash-usd",
+    name: "cash",
     type: 'income'
   },
 }

@@ -5,7 +5,10 @@
   "Others": "其他",
   "Transportation": "交通",
   "Housing": "住屋",
-  "Tax": "稅金",
+  "Tax": "稅項",
   "AddBudget": "新增預算",
-  "AddTransaction": "新增交易"
+  "AddTransaction": "新增交易",
+  "Salary": "薪水",
+  "Bonus": "獎金",
+  "Benefits": "福利"
 }

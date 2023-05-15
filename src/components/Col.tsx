@@ -1,14 +1,17 @@
 import { ReactElement } from 'react';
-import FlexBox, { FlexBoxProps } from './Base/FlexBox';
+import { View } from 'react-native'
+
+import tw from 'twrnc';
+import FlexBox, { FlexBoxProps, flexBoxStyle } from './Base/FlexBox';
 
 interface RowProps extends Omit<FlexBoxProps, 'col'> {
   children: ReactElement | ReactElement[];
   expand?: boolean;
 }
 
-const Row = ({ children, rounded = 5, align = 'end', ...otherProps }: RowProps) => (
+const Col = ({children, rounded=5, align, ...otherProps}:RowProps) => (
   <FlexBox
-    col={false}
+    col={true}
     rounded={rounded}
     align={align}
     {...otherProps}
@@ -17,4 +20,4 @@ const Row = ({ children, rounded = 5, align = 'end', ...otherProps }: RowProps) 
   </FlexBox>
 )
 
-export default Row
+export default Col

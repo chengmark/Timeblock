@@ -15,43 +15,79 @@ const transparentnessMap = {
 const LABEL_BG_TRANSPARENTNESS = '0.2';
 
 const COLORS = {
-  blue: '#0A84FF',
-  brown: '#AC8E68',
-  cyan: '#64D2FF',
-  green: '#30D158',
-  indigo: '#5E5CE6',
-  mint: '#66D4CF',
-  orange: '#FF9F0A',
-  pink: '#FF375F',
-  purple: '#BF5AF2',
-  red: '#FF453A',
-  teal: '#40C8E0',
-  yellow: '#FFD60A',
-  grey: {
-    100: '#8E8E93',
-    200: '#636366',
-    300: '#48484A',
-    400: '#3A3A3C',
-    500: '#2C2C2E',
-    600: '#1C1C1E',
+  cta: {
+    red: '#FF453A',
+    green: '#35C989',
+    blue: '#0A84FF',
+    yellow: '#FFD60A',
   },
-  label: {
-    100: '#FFFFFF',
-    200: '#C8C8C8',
-    300: '#989898',
+  text: {
+    '000':'#FFFFFF',
+    '100': '#DCDDDE',
+    '200': '#72767D',
   },
-  fill: "#CECED1",
-  placeholder: '#F8F8FC',
-  background: {
-    100: '#000000',
-    200: '#1C1C1E',
-    300: '#2C2C2E',
-    400: '#3C3C3E',
+  bg: {
+    '000': '#000000',
+    '100': '#202225',
+    '200': '#292B2F',
+    '300': '#36393F',
+    '400': '#393C43',
+    '500': '#4F545C',
+    '600': '#5D6269'
   },
-  separator: '#98989B',
-  opaqueSeparator: '#38383A',
-  link: '#0B84FF',
-};
+  brand: {
+    primary: '#5865F2',
+    secondary: '#949CF7',
+    pressed: '#4752C4',
+  },
+  gradient: {
+    blueToPurple: ['#3F70DD', '#B377F3']
+  }
+}
+
+// const COLORS = {
+//   blue: '#0A84FF',
+//   brown: '#AC8E68',
+//   cyan: '#64D2FF',
+//   green: '#30D158',
+//   indigo: '#5E5CE6',
+//   mint: '#66D4CF',
+//   orange: '#FF9F0A',
+//   pink: '#FF375F',
+//   purple: '#BF5AF2',
+//   red: '#FF453A',
+//   teal: '#40C8E0',
+//   yellow: '#FFD60A',
+//   grey: {
+//     100: '#8E8E93',
+//     200: '#636366',
+//     300: '#48484A',
+//     400: '#3A3A3C',
+//     500: '#2C2C2E',
+//     600: '#1C1C1E',
+//   },
+//   label: {
+//     100: '#FFFFFF',
+//     200: '#C8C8C8',
+//     300: '#989898',
+//     400: '#585858',
+//     500: '#282828',
+//     600: '#080808',
+//   },
+//   fill: "#CECED1",
+//   placeholder: '#F8F8FC',
+//   background: {
+//     100: '#000000',
+//     200: '#1C1C1E',
+//     300: '#2C2C2E',
+//     400: '#3C3C3E',
+//     500: '#8C8C8E',
+//     600: '#ACACAE',
+//   },
+//   separator: '#98989B',
+//   opaqueSeparator: '#38383A',
+//   link: '#0B84FF',
+// };
 
 export default COLORS;
 

@@ -8,7 +8,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import Layout from '../Layout'
 import { ComponentType } from 'react'
 import { IconProps } from 'react-native-vector-icons/Icon'
-import IconButton from './IconButton'
+import IconButton from './Buttons/IconButton'
 import COLORS from '../Colors'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
 
@@ -25,7 +25,7 @@ const NavButton = ({Icon, name, onPress, flip=false, active=false}:NavButtonProp
     style={tw`mx-auto`}
     Icon={Icon}
     name={name}
-    color={active ? COLORS.label[100] : COLORS.grey[300]}
+    color={active ? COLORS.text['000'] : COLORS.text['200']}
     size={32}
     flip={flip}
     onPress={onPress}
@@ -34,9 +34,9 @@ const NavButton = ({Icon, name, onPress, flip=false, active=false}:NavButtonProp
 
 const TabBar = ({state, navigation}:BottomTabBarProps) => {
   const activeRoute = state.routes[state.index].name
-  console.log(activeRoute);
+  // console.log(activeRoute);
   return (
-    <View style={tw`flex-row border-t-[2px] border-[${COLORS.opaqueSeparator}] justify-between items-center min-h-[${Layout.footer}px]`}>
+    <View style={tw`flex-row border-t-[2px] border-[${COLORS.text['100']}] justify-between items-center min-h-[${Layout.footer}px]`}>
       <NavButton Icon={AntDesignIcon} name="home" onPress={() => navigation.navigate("Home")} active={activeRoute === "Home"}/>
       <NavButton Icon={SimpleLineIcon} name="wallet" onPress={() => navigation.navigate("Finance")} flip active={activeRoute === "Finance"}/>
       <NavButton Icon={FeatherIcon} name="calendar" onPress={() => navigation.navigate("Calendar")} active={activeRoute === "Calendar"}/>

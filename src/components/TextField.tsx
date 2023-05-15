@@ -14,12 +14,13 @@ const TextField = ({placeholder, size='m', onChangeText}:TextFieldProps) => (
   <TextInput
     onChangeText={onChangeText ?? (() => {})}
     style={[
-      tw`text-[${ COLORS.label[100] }] text-base mx-4 my-3 leading-8`,
+      tw`text-[${ COLORS.text['000'] }] text-base mx-4 my-3 leading-[${FONT_SIZE[size] + 4}px]`,
       tw`text-[${FONT_SIZE[size]}px]`,
+      tw``
     ]}
     placeholder={placeholder}
-    placeholderTextColor={COLORS.label[300]}
-    selectionColor={COLORS.green}
+    placeholderTextColor={COLORS.text['100']}
+    selectionColor={COLORS.text['000']}
   />
 )
 
