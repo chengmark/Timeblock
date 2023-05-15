@@ -6,7 +6,7 @@ interface RowProps extends Omit<FlexBoxProps, 'col'> {
   expand?: boolean;
 }
 
-const Row = ({ children, rounded = 5, align = 'end', ...otherProps }: RowProps) => (
+const Row = ({ children, rounded=5, align = 'end', ...otherProps }: RowProps) => (
   <FlexBox
     col={false}
     rounded={rounded}

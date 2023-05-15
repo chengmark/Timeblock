@@ -43,8 +43,8 @@ const CategorySpending = ({title, amount}: {title: string, amount: string}) => (
 
 const SpendingByCategoryList = () => {
   return (
-    <Col>
-      <Row py={2} align='center' justify='between'>
+    <Col gap={2.5}>
+      <Row align='center' justify='between'>
         <Text bold expand color={COLORS.text['100']} >SPENDINGS BY CATEGORY</Text>
         <Chevron />
       </Row>

@@ -13,8 +13,8 @@ import Chevron from "../Chevron";
 
 const BudgetSummary = () => {
   return (
-    <Col>
-      <Row py={2} align='center' justify='between'>
+    <Col gap={2.5}>
+      <Row align='center' justify='between'>
         <Text bold expand color={COLORS.text['100']} >BUDGET</Text>
         <Chevron />
       </Row>

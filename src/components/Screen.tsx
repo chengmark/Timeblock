@@ -1,10 +1,13 @@
+import React from 'react';
+import { ReactElement } from 'react';
 import { Dimensions, View } from 'react-native';
 import tw from 'twrnc';
 import COLORS from '../Colors';
+import FlexBox from './Base/FlexBox';
 import Col from './Col';
 
 interface ScreenProps {
-  children?: React.ReactNode | React.ReactNode[];
+  children: ReactElement | ReactElement[];
 }
 
 const screenHeight = Dimensions.get('window').height
@@ -17,8 +20,15 @@ const Screen = ({ children }: ScreenProps) => (
     style={[
       tw`h-[${screenHeight - 128}px]`,
     ]}
+    gap={2.5}
   >
-    {children}
+    {
+      React.Children.map(children, (child) => (
+        <FlexBox col>
+          {child}
+        </FlexBox>
+      ))
+    }
   </Col>
 )
 

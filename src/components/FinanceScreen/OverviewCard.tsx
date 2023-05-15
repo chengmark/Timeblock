@@ -6,6 +6,7 @@ import Text from '../Text'
 import { LinearGradient } from 'expo-linear-gradient';
 import COLORS from '../../Colors';
 import Chevron from '../Chevron';
+import { FlexBoxProps } from '../Base/FlexBox';
 
 const BalanceRow = () => {
   return (
@@ -26,13 +27,21 @@ const BalanceRow = () => {
   )
 }
 
+const SPENDINGS = [200, 400, 1000, 900, 900, 900, 900]
+
 const SpendingChart = () => {
-
-}
-
-const OverviewCard = () =>  {
   return (
     <Col>
+      
+    </Col>
+  )
+}
+
+interface OverviewCardProps extends FlexBoxProps{}
+
+const OverviewCard = ({...flexBoxProps}:OverviewCardProps) =>  {
+  return (
+    <Col {...flexBoxProps}>
       <Row>
         <LinearGradient
           colors={COLORS.gradient.blueToPurple} 
