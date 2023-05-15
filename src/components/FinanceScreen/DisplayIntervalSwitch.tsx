@@ -27,8 +27,8 @@ const OPTIONS = ['DAILY', 'MONTHLY', 'YEARLY']
 const DisplayIntervalSwitch = (props: DisplayIntervalSwitchProps) => {
   const [selected, setSelected] = useState(0)
   return (
-    <Col>
-      <Row py={2} align='center' justify='between'>
+    <Col gap={2.5}>
+      <Row align='center' justify='between'>
         <Text bold expand color={COLORS.text['100']} >DISPLAY INTERVAL</Text>
       </Row>
       <Row rounded={1.25}>
