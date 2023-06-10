@@ -27,8 +27,11 @@ export const FONT_SIZE = {
   m: 14,
   l: 16,
   xl: 18,
-  xxl: 20,
-  xxxl: 22
+  '2xl': 20,
+  '3xl': 22,
+  '4xl': 24,
+  '5xl': 28,
+  '6xl': 32,
 }
 
 export interface IconObject {

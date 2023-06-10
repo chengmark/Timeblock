@@ -30,7 +30,12 @@ const BudgetSummary = () => {
           <Row align="center" expand gap={1.25}>
             <Icon Component={MaterialComunity} name='calendar-today' color={COLORS.brand.secondary} size={20}/>
             <Text size='l' bold m={[0, 0, 0, 1]}>TODAY</Text>
-            <Badge text='18.25%' textColor={COLORS.cta.green} bgColor={transparent(0.15, COLORS.cta.green)} size={12} bold m={[0, 0, 0, 2]}/>
+            <Badge
+              m={[0, 0, 0, 2]}
+              rounded={10}
+              bg={transparent(0.1, COLORS.cta.green)}
+              Text={() => <Text size='s' bold color={COLORS.cta.green}>18.25%</Text>}
+            />
           </Row>
           <Row>
             <Text color={COLORS.text['100']} bold>LEFT: </Text>
@@ -40,7 +45,7 @@ const BudgetSummary = () => {
 
         <Row px={8}>
           <ProgressBar
-            bgColor={transparent(0.15, COLORS.cta.green)}
+            bgColor={transparent(0.1, COLORS.cta.green)}
             progressColor={COLORS.cta.green}
             progress={18.25}
           />

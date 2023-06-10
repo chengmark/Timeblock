@@ -1,36 +1,30 @@
-import { Text, View } from 'react-native'
+import { ReactElement } from 'react'
 import tw from 'twrnc'
-import { BoxProps, boxStyle } from './Base/Box'
+import { BoxStyle, boxStyle } from './Base/Box'
+import { IconProps } from './Icon'
+import Row from './Row'
+import { TextProps } from './Text'
 
-interface BadgeProps extends BoxProps {
-  text: string
-  textColor: string
-  bgColor: string
-  radius?: number
-  size?: number
-  bold?: boolean
+interface BadgeProps extends BoxStyle {
+  Icon?: () => ReactElement<IconProps>
+  Text?: () => ReactElement<TextProps>
+  onPress?: () => void
 }
 
-const Badge = ({text, textColor, bgColor, radius = 10, size=14, bold=false, ...otherProps}:BadgeProps) => {
+const Badge = ({Icon, Text, onPress, ...otherProps}:BadgeProps) => {
   return (
-    <View
+    <Row
+      px={1.25}      
       style={[
         boxStyle({...otherProps}),
-        tw`px-1.25`,
-        tw`bg-[${bgColor}]`,
-        tw`rounded-[${radius}]`
       ]}
+      justify='center'
+      align='center'
+      onPress={onPress}
     >
-      <Text
-        style={[
-          tw`text-[${textColor}]`,
-          tw`text-[${size}px]`,
-          bold ? tw`font-bold` : tw`font-normal`
-        ]}
-      >
-        { text }
-      </Text>
-    </View>
+      {Icon ? <Icon /> : <></>}
+      {Text ? <Text /> : <></>}
+    </Row>
   )
 }
 

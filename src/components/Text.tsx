@@ -1,15 +1,15 @@
 import tw from 'twrnc'
-import { ColorValue, StyleProp, Text as RNText, TextProps as RNTextProps } from 'react-native'
+import { ColorValue, StyleProp, Text as RNText, TextStyle as RNTextStyle } from 'react-native'
 import COLORS from '../Colors'
 import { FONT_SIZE } from '../constants';
-import { BoxProps, boxStyle } from './Base/Box';
+import { BoxStyle, boxStyle } from './Base/Box';
 
 // interface of Typography component, where the type of size props depends on the FONT_SIZE object
-export interface TextProps extends BoxProps{
+export interface TextProps extends BoxStyle{
   children?: React.ReactNode
   bold?: boolean
   size?: keyof typeof FONT_SIZE
-  style?: StyleProp<RNTextProps>
+  style?: StyleProp<RNTextStyle>
   color?: ColorValue | undefined
   expand?: boolean
   center?: boolean

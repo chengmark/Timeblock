@@ -1,5 +1,5 @@
 // get the color scheme from iOS calendar app
-const transparentnessMap = {
+const transparentnessMap:Record<string, string> = {
   '0.1': '25', // 0.1 * 255 = 25
   '0.2': '33', // 0.2 * 255 = 51
   '0.3': '4c', // 0.3 * 255 = 76
@@ -14,6 +14,8 @@ const transparentnessMap = {
 
 const LABEL_BG_TRANSPARENTNESS = '0.2';
 
+export const transparent = (transparentness: number, color: string) => color + transparentnessMap[transparentness];
+
 const COLORS = {
   cta: {
     red: '#FF453A',
@@ -24,7 +26,8 @@ const COLORS = {
   text: {
     '000':'#FFFFFF',
     '100': '#DCDDDE',
-    '200': '#72767D',
+    '200': '#B9BBBE',
+    'green': '#72FFC2',
   },
   bg: {
     '000': '#000000',
@@ -39,56 +42,11 @@ const COLORS = {
     primary: '#5865F2',
     secondary: '#949CF7',
     pressed: '#4752C4',
+    tmp: transparent(0.9, '#5865F2')
   },
   gradient: {
     blueToPurple: ['#3F70DD', '#B377F3']
   }
 }
 
-// const COLORS = {
-//   blue: '#0A84FF',
-//   brown: '#AC8E68',
-//   cyan: '#64D2FF',
-//   green: '#30D158',
-//   indigo: '#5E5CE6',
-//   mint: '#66D4CF',
-//   orange: '#FF9F0A',
-//   pink: '#FF375F',
-//   purple: '#BF5AF2',
-//   red: '#FF453A',
-//   teal: '#40C8E0',
-//   yellow: '#FFD60A',
-//   grey: {
-//     100: '#8E8E93',
-//     200: '#636366',
-//     300: '#48484A',
-//     400: '#3A3A3C',
-//     500: '#2C2C2E',
-//     600: '#1C1C1E',
-//   },
-//   label: {
-//     100: '#FFFFFF',
-//     200: '#C8C8C8',
-//     300: '#989898',
-//     400: '#585858',
-//     500: '#282828',
-//     600: '#080808',
-//   },
-//   fill: "#CECED1",
-//   placeholder: '#F8F8FC',
-//   background: {
-//     100: '#000000',
-//     200: '#1C1C1E',
-//     300: '#2C2C2E',
-//     400: '#3C3C3E',
-//     500: '#8C8C8E',
-//     600: '#ACACAE',
-//   },
-//   separator: '#98989B',
-//   opaqueSeparator: '#38383A',
-//   link: '#0B84FF',
-// };
-
 export default COLORS;
-
-export const transparent = (transparentness: number, color: string) => color + Math.floor(transparentness * 255).toString();

@@ -1,27 +1,89 @@
-import { TextInput } from "react-native"
+import React, { ForwardedRef, forwardRef, useImperativeHandle, useState } from 'react'
+import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native'
+import Row from './Row'
 
 import tw from 'twrnc'
-import COLORS from "../Colors"
-import { FONT_SIZE } from "../constants"
+import COLORS from '../Colors'
+import { FONT_SIZE } from '../constants'
 
-interface TextFieldProps {
-  placeholder: string
-  size?: keyof typeof FONT_SIZE;
-  onChangeText?: (text: string) => void
+export interface TextFieldRef {
+  focus: () => void;
+  blur: () => void;
+  clear: () => void;
+  value?: string;
 }
 
-const TextField = ({placeholder, size='m', onChangeText}:TextFieldProps) => (
-  <TextInput
-    onChangeText={onChangeText ?? (() => {})}
-    style={[
-      tw`text-[${ COLORS.text['000'] }] text-base mx-4 my-3 leading-[${FONT_SIZE[size] + 4}px]`,
-      tw`text-[${FONT_SIZE[size]}px]`,
-      tw``
-    ]}
-    placeholder={placeholder}
-    placeholderTextColor={COLORS.text['100']}
-    selectionColor={COLORS.text['000']}
-  />
-)
+interface TextFieldProps {
+  value?: string
+  placeholder?: string
+  placeholderColor?: string
+  textColor?: string
+  textSize?: keyof typeof FONT_SIZE
+  bgColor?: string
+  height?: number
+  selectionColor?:string
+  Button?: React.ComponentType
+  capitalValue?: boolean // capitalize the value
+}
+
+const TextField = forwardRef(({
+  placeholder,
+  placeholderColor,
+  textColor,
+  textSize='l',
+  bgColor = COLORS.bg['100'],
+  height = 48,
+  selectionColor = COLORS.text['000'],
+  Button
+}:TextFieldProps, ref) => {
+  const inputRef = React.useRef<TextInput>(null);
+  const [value, setValue] = useState('')
+
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      inputRef.current?.focus();
+    },
+    blur: () => {
+      inputRef.current?.blur();
+    },
+    clear: () => {
+      inputRef.current?.clear();
+    },
+    get value() {
+      return value;
+    },
+  }))
+
+  return (
+    <Row
+      p={[0, 1.25, 0, 1.25]}
+      align='center'
+      rounded={1}
+      style={[
+        tw`h-[${height}px]`,
+        tw`w-full`,
+        tw`bg-[${bgColor}]`
+      ]}
+    >
+      <TextInput
+        ref={inputRef}
+        style={[
+          tw`flex-1 p-0 ml-2`,
+          tw`text-[${FONT_SIZE[textSize]}px]`,
+          tw`text-[${textColor as string}]`,
+          {alignSelf: 'center'},
+        ]}
+        value={value}
+        placeholder={placeholder}
+        placeholderTextColor={placeholderColor}
+        selectionColor={selectionColor}
+        onChangeText={text => setValue(text)}
+      />
+      <>
+        {Button && <Button />}
+      </>
+    </Row>
+  )
+})
 
 export default TextField

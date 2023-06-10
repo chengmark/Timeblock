@@ -1,46 +1,38 @@
-import { ComponentType, useState } from "react"
-import { ColorValue, Pressable, StyleProp } from "react-native"
-import { IconProps } from "react-native-vector-icons/Icon"
-
+import { Pressable } from "react-native"
+import Icon, { IconProps } from "../Icon"
 import tw from 'twrnc'
+import COLORS from "../../Colors"
+import { isLayoutArray, isTRBL, isYX, Layout, LayoutXY } from "../../styleUtils"
 
-export interface IconButtonProps {
-  Icon:ComponentType<IconProps>
-  name:string
-  size?:number
-  color?:ColorValue | undefined
-  onPress?:()=>void
-  backgroundColor?:string
-  activeColor?:string
-  style?:StyleProp<any>
-  flip?:boolean
+export interface IconButtonProps extends IconProps {
+  onPress?: () => void
+  p?: Layout
+  px?: LayoutXY
+  py?: LayoutXY
+  bg?: string
+  rouneded?: string
 }
 
-// This is a workaround to make the Icon component non-pressable
-interface NonPressableIconProps extends Omit<IconProps, "onPress">{
-  Icon:ComponentType<IconProps>
-}
-
-export const NonPressableIcon = ({Icon, ...otherProps}:NonPressableIconProps ) => <Icon {...otherProps}/>
-
-const IconButton = ({Icon, name, size=24, color, backgroundColor, activeColor, onPress, style, flip=false}:IconButtonProps) => {
-  const [pressed, setPressed] = useState(false)
-
+const IconButton = ({onPress, p=0, px=0, py=0, bg=COLORS.bg['100'], rouneded='3.75', m, mx, my, ...iconProps}: IconButtonProps) => {
   return (
     <Pressable
-      onPressIn={() => setPressed(true)}
-      onPress={()=>{
-        setPressed(false)
-        onPress?.()
-      }}
+      onPress={onPress}
       style={[
-        tw`p-1 rounded`,
-        tw`bg-[${pressed ? (activeColor || "#00000000") : (backgroundColor || "#00000000")}]`,
-        flip ? {transform: [{scaleX: -1}]} : {},
-        style
+        p && isYX(p) ? tw`px-${p[0]} py-${p[1]}`: tw``,
+        p && isTRBL(p) ? tw`pt-${p[0]} pr-${p[1]} pb-${p[2]} pl-${p[3]}`: tw``,
+        p && !isLayoutArray(p) ? tw`p-${p}` : tw``,
+        px ? tw`px-${px}` : null,
+        py ? tw`py-${py}` : null,
+        bg ? tw`bg-[${bg}]` : null,
+        tw`rounded-${rouneded}`,
+        m && isYX(m) ? tw`mx-${m[0]} my-${m[1]}`: tw``,
+        m && isTRBL(m) ? tw`mt-${m[0]} mr-${m[1]} mb-${m[2]} ml-${m[3]}`: tw``,
+        m && !isLayoutArray(m) ? tw`m-${m}`: tw``,
+        mx ? tw`mx-${mx}` : null,
+        my ? tw`my-${my}` : null,
       ]}
     >
-      <NonPressableIcon name={name} size={size} color={color} Icon={Icon}/>
+      <Icon {...iconProps}/>
     </Pressable>
   )
 }

@@ -1,20 +1,22 @@
 import React from 'react';
 import { ReactElement } from 'react';
-import { StyleProp, ViewProps, View } from 'react-native';
+import { StyleProp, ViewProps, View, ViewStyle } from 'react-native';
 import tw from 'twrnc'
-import Box, { BoxProps, boxStyle } from './Box';
+import { isTRBL, isYX, Layout } from '../../styleUtils';
+import Box, { BoxProps, BoxStyle, boxStyle } from './Box';
 
+export type Justify = 'start' | 'end' | 'center' | 'between' | 'around'
+export type Align = 'start' | 'end' | 'center'
 
-export interface FlexBoxProps extends BoxProps
+export interface FlexBoxStyle extends BoxStyle
 {
   col?: boolean
-  justify?: 'start' | 'end' | 'center' | 'between' | 'around';
-  align?: 'start' | 'end' | 'center';
-  style?: StyleProp<ViewProps>
-  gap?: number
+  justify?: Justify;
+  align?: Align;
+  style?: StyleProp<ViewStyle>
 }
 
-export const flexBoxStyle = ({ col = false, justify = 'start', align = 'start', style, ...otherProps }: FlexBoxProps) =>
+export const flexBoxStyle = ({ col = false, justify = 'start', align = 'start', style, ...otherProps }: FlexBoxStyle) =>
 {
   return (([
     boxStyle({ ...otherProps }),
@@ -25,22 +27,11 @@ export const flexBoxStyle = ({ col = false, justify = 'start', align = 'start', 
   ]))
 }
 
-const FlexBox = ({ children, gap = 0, ...flexBoxProps }: FlexBoxProps & { children: ReactElement | ReactElement[], gap?: number }) => (
-  <Box style={flexBoxStyle(flexBoxProps)}>
-    {React.Children.map(children, (child, index) =>
-    {
-      // gap implementation
-      //TODO: fix gap overriding margin
-      const isCol = flexBoxProps.col
-      const mt = isCol && index > 0 ? gap / 2 : 0;
-      const mr = !isCol && index < React.Children.count(children) - 1 ? gap / 2 : 0;
-      const mb = isCol && index < React.Children.count(children) - 1 ? gap / 2 : 0;
-      const ml = !isCol && index > 0 ? gap / 2 : 0;
-      const otherStyles = Array.isArray(child.props.style) ? child.props.style.reduce((acc:any, val:any) => ({ ...acc, ...val }), {}) : child.props.style;
-      const cloned = React.cloneElement(child, {...child.props, style: {...tw`mt-${ mt } mr-${ mr } mb-${ mb } ml-${ ml }`, ...otherStyles} });
-      // console.log(isCol && index > 0, isCol && index < React.Children.count(children) - 1, child.props.style, cloned);
-      return cloned
-    })}
+export type FlexBoxProps = FlexBoxStyle & BoxProps & { children: ReactElement | ReactElement[]}
+
+const FlexBox = ({ children, onPress, ...flexBoxProps }: FlexBoxProps) => (
+  <Box onPress={onPress} style={flexBoxStyle(flexBoxProps)}> 
+    {children}
   </Box>
 )
 
