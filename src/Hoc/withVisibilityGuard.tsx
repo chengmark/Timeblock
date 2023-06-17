@@ -10,7 +10,6 @@ const withVisibilityGuard = (WrappedComponent:() => ReactElement, searchKeys:str
   return (props:any) => {
     const hasAllSearchKeys = searchKeys.every(searchKey => {
       const value = searchKey.split('.').reduce((obj, key) => obj && obj[key], props);
-      console.log(value)
       return !isEmpty(value);
     });
     

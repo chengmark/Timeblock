@@ -5,11 +5,12 @@ import { useAddTransactionContext } from '../../../Contexts/AddTransactionContex
 import Col from '../../Col'
 import Row from '../../Row'
 import Text from '../../Text'
-// import Material from 'react-native-vector-icons/MaterialIcons'
+import Material from 'react-native-vector-icons/MaterialIcons'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import tw from 'twrnc'
 import COLORS from '../../../Colors'
 import Icon from '../../Icon'
+import FlexBox from '../../Base/FlexBox'
 
 const SelectedIcon = () => (
   <Row
@@ -27,7 +28,7 @@ const SelectedIcon = () => (
 
 const SelectCategoryDialog = () => {
   const {showSelectCategoryDialog, setShowSelectCategoryDialog, selectedCategory, setSelectedCategory} = useAddTransactionContext()
-  const categories = Object.keys(CATEGORIES) as Categories[]
+  const categories = Object.values(CATEGORIES).map(category => ({title: category.title as Categories, icon: category.icon}))
   const isSelected = (category: Categories) => selectedCategory.toUpperCase() === category.toUpperCase()
 
   return (
@@ -47,23 +48,26 @@ const SelectCategoryDialog = () => {
           {
             categories.map(category => (
               <Row
-                key={category}
+                key={category.title}
                 rounded={0}
-                bg={isSelected(category) ? COLORS.bg['100'] : COLORS.bg['300']}
+                bg={isSelected(category.title) ? COLORS.bg['100'] : COLORS.bg['300']}
                 py={2.5}
                 px={2.5}
                 justify='between'
                 align='center'
                 style={tw`w-full`}
                 onPress={() => {
-                  setSelectedCategory(category)
+                  setSelectedCategory(category.title)
                   setShowSelectCategoryDialog(false)
                 }}
               >
-                <Text size='xl'>{category.toUpperCase()}</Text>
+                <Row gap={1.25} align='center'>
+                  <Icon Component={Material} name={category.icon} color={COLORS.text['000']} size={18}/>
+                  <Text size='xl'>{category.title.toUpperCase()}</Text>
+                </Row>
                 <>
                   {
-                    isSelected(category) &&  <SelectedIcon />
+                    isSelected(category.title) &&  <SelectedIcon />
                   }
                 </>
               </Row>

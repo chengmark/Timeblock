@@ -1,7 +1,7 @@
 import Modal from "react-native-modal"
 import COLORS from "../../../Colors"
 import { useAddTransactionContext } from "../../../Contexts/AddTransactionContext"
-import Button from "../../Buttons/Button"
+import ContainedButton from "../../Buttons/ContainedButton"
 import Col from "../../Col"
 import Row from "../../Row"
 import Text from "../../Text"
@@ -45,7 +45,7 @@ const CreateSubCategoryDialog = () => {
               textColor={COLORS.text['000']}
               bgColor={COLORS.bg['100']}
               ref={textFieldRef}
-              // Button={() => <Button text='Add' bg={COLORS.brand.primary} fontSize='l' width={BUTTON_WIDTH}/>}
+              // ContainedButton={() => <ContainedButton text='Add' bg={COLORS.brand.primary} fontSize='l' width={BUTTON_WIDTH}/>}
             />
           </Row>
         </Col>
@@ -58,11 +58,12 @@ const CreateSubCategoryDialog = () => {
           justify='end'
           gap={1.25}
         >
-          <Button text='Cancel' bg={COLORS.bg['100']} fontSize='l' width={BUTTON_WIDTH} onPress={() => setShowCreateSubCategoryDialog(false)}/>
-          <Button text='Add' bg={COLORS.brand.primary} fontSize='l' width={BUTTON_WIDTH}
+          <ContainedButton text='Cancel' bg={COLORS.bg['100']} fontSize='l' width={BUTTON_WIDTH} onPress={() => setShowCreateSubCategoryDialog(false)}/>
+          <ContainedButton text='Add' bg={COLORS.brand.primary} fontSize='l' width={BUTTON_WIDTH}
             onPress={() => {
               if(!textFieldRef.current?.value) return
               setShowCreateSubCategoryDialog(false)
+              // Dup sub cate checking, print error
               CATEGORIES[selectedCategory].subCategories.push({
                 title: textFieldRef.current?.value,
                 icon: ''

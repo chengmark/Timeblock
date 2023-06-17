@@ -29,7 +29,6 @@ const NavButton = ({Component, name, onPress, LRFlip=false, active=false}:NavBut
 
 const TabBar = ({state, navigation}:BottomTabBarProps) => {
   const activeRoute = state.routes[state.index].name
-  // console.log(activeRoute);
   return (
     <Row rounded={0} justify='between' align='center' style={[tw`border-t-[2px] border-[${COLORS.text['100']}] min-h-[${Layout.footer}px]`]}>
       <NavButton Component={AntDesignIcon} name="home" onPress={() => navigation.navigate("Home")} active={activeRoute === "Home"}/>

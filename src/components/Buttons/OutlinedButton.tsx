@@ -7,19 +7,20 @@ import Col from '../Col'
 import Row from '../Row'
 import Text, { TextProps } from '../Text'
 
-interface ButtonProps extends Omit<FlexBoxProps, 'children' | 'style'>, Omit<TextProps, 'children' | 'style'>{
+interface ButtonProps extends Omit<FlexBoxProps, 'children' | 'style'>, Omit<TextProps, 'children' | 'style' | 'size'>{
   text: string
   fontSize?: keyof typeof FONT_SIZE
   fontColor?: ColorValue | undefined
   width?: number // in px
+  underlined?: boolean
 }
 
-const Button = ({col=false, text, fontSize, bold, fontColor=COLORS.text['000'], bg=COLORS.bg['300'], width=0,  ...rest}: ButtonProps) => {
+const OutlinedButton = ({col=false, text, fontSize, bold, fontColor=COLORS.text['000'], border=[0.25, COLORS.bg['300']], underlined=false, width=0,  ...rest}: ButtonProps) => {
   const commonDefaultProps = {
     px: 3.75,
     py: 2,
     rounded:0.5,
-    bg: bg,
+    border,
     justify: 'center' as Justify,
     align: 'center' as Align,
   }
@@ -31,7 +32,7 @@ const Button = ({col=false, text, fontSize, bold, fontColor=COLORS.text['000'], 
         {...commonDefaultProps}
         {...rest}
       >
-        <Text size={fontSize} bold={bold}>{ text }</Text>
+        <Text size={fontSize} color={fontColor} bold={bold} underlined={underlined}>{ text }</Text>
       </Col>
     )
   }
@@ -42,9 +43,9 @@ const Button = ({col=false, text, fontSize, bold, fontColor=COLORS.text['000'], 
       {...commonDefaultProps}
       {...rest}
     >
-      <Text size={fontSize} bold={bold}>{ text }</Text>
+      <Text size={fontSize} color={fontColor} bold={bold} underlined={underlined}>{ text }</Text>
     </Row>
   )
 }
 
-export default Button
+export default OutlinedButton

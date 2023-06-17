@@ -6,6 +6,10 @@ import tw from 'twrnc'
 import { FlatList } from 'react-native';
 import ProgressBar from '../ProgressBar';
 import Chevron from '../Chevron'
+import { useMemo } from 'react'
+import { useFinanceContext } from '../../Contexts/FinanceContext'
+import { Transaction } from '../../Types/Transaction'
+import CATEGORIES, { getCategories } from '../../categories'
 
 const CATEGORY_SPENDINGS = [
   {
@@ -22,10 +26,10 @@ const CATEGORY_SPENDINGS = [
   }
 ]
 
-const CategorySpending = ({title, amount}: {title: string, amount: string}) => (
+const CategorySpending = ({category, amount}: {category: string, amount: string}) => (
   <Col bg={COLORS.bg['300']} rounded={1.25} p={1.25} mx={1.25} style={tw`min-w-[125px]`} gap={1.25}>
     <Row>
-      <Text size="s" color={COLORS.text['100']}>{title}</Text>
+      <Text size="s" color={COLORS.text['100']}>{category}</Text>
     </Row>
     <Row gap={2.5}>
       <Text size="l" bold>{amount}</Text>
@@ -42,6 +46,8 @@ const CategorySpending = ({title, amount}: {title: string, amount: string}) => (
 )
 
 const SpendingByCategoryList = () => {
+  const { transactions } = useFinanceContext()
+  const categorySpending = useMemo(() => getCategories().map(category => transactions.filter(transaction => transaction.category === category).reduce((acc, cur) => ({category, amount: acc.amount + cur.amount}), {category, amount: 0})), [transactions])
   return (
     <Col gap={2.5}>
       <Row align='center' justify='between'>
@@ -51,8 +57,8 @@ const SpendingByCategoryList = () => {
       <Row rounded={1.25}>
         <FlatList
           horizontal
-          data={CATEGORY_SPENDINGS}
-          renderItem={item => <CategorySpending title={item.item.title} amount={item.item.amount}/> }
+          data={categorySpending}
+          renderItem={item => <CategorySpending category={item.item.category.toUpperCase()} amount={item.item.amount.toLocaleString('en-US', {minimumFractionDigits: 2})}/> }
           showsHorizontalScrollIndicator={false}
         />
       </Row>

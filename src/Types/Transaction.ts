@@ -1,9 +1,13 @@
+import { Categories, SubCategories } from "../categories";
+
 export interface Transaction {
+  id: string;
   amount: number;
   title: string;
   description?: string;
   date: string;
-  category: IncomeCategory | ExpenseCategory;
+  category: Categories
+  subCategory: SubCategories
 }
 
 export interface Budget {

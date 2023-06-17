@@ -6,16 +6,19 @@ import { BoxStyle, boxStyle } from './Base/Box';
 
 // interface of Typography component, where the type of size props depends on the FONT_SIZE object
 export interface TextProps extends BoxStyle{
-  children?: React.ReactNode
+  children?: string
   bold?: boolean
   size?: keyof typeof FONT_SIZE
   style?: StyleProp<RNTextStyle>
   color?: ColorValue | undefined
   expand?: boolean
   center?: boolean
+  underlined?: boolean
+  toUpper?: boolean
+  toLower?: boolean
 }
 
-const Text = ({ children, bold, size="m", style, color=COLORS.text['000'], expand=false, center=false, ...otherProps }: TextProps) => (
+const Text = ({ children, bold, size="m", style, color=COLORS.text['000'], expand=false, center=false, underlined=false, toUpper=false, toLower=false, ...otherProps }: TextProps) => (
   <RNText
     style={[
       boxStyle({...otherProps}),
@@ -24,12 +27,15 @@ const Text = ({ children, bold, size="m", style, color=COLORS.text['000'], expan
       tw`text-[${FONT_SIZE[size]}px]`,
       expand ? tw`flex-1` : tw``,
       center ? tw`text-center` : tw``,
+      underlined ? {textDecorationLine: 'underline'} : tw``,
       style
     ]}
     numberOfLines={1}
     ellipsizeMode="tail"
   >
-    {children}
+    { toUpper && children?.toUpperCase() }
+    { toLower && children?.toLowerCase() }
+    { !toUpper && !toLower && children }
   </RNText>
 )
 

@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import { Dimensions } from 'react-native'
 import tw from 'twrnc'
 import COLORS from '../Colors'
 import FlexBox from './Base/FlexBox'

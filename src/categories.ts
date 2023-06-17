@@ -70,7 +70,9 @@ const CATEGORIES = {
 export type Categories = keyof typeof CATEGORIES;
 export type SubCategories = typeof CATEGORIES[Categories]['subCategories'][number]['title'];
 
-export const getSubCategories = (category: keyof typeof CATEGORIES) => CATEGORIES[category].subCategories;
-export const getCategoryIcon = (category: keyof typeof CATEGORIES) => CATEGORIES[category].icon;
+export const getCategories = () => Object.keys(CATEGORIES)
+export const getSubCategories = (category: Categories) => CATEGORIES[category].subCategories;
+export const getCategoryIcon = (category: Categories) => CATEGORIES[category].icon;
+export const getSubCategoryIcon = (category: Categories, subCategory: SubCategories) => CATEGORIES[category].subCategories.find(subCat => subCat.title === subCategory)?.icon
 
 export default CATEGORIES

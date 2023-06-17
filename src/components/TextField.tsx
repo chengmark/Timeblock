@@ -22,7 +22,7 @@ interface TextFieldProps {
   bgColor?: string
   height?: number
   selectionColor?:string
-  Button?: React.ComponentType
+  ContainedButton?: React.ComponentType
   capitalValue?: boolean // capitalize the value
 }
 
@@ -34,7 +34,7 @@ const TextField = forwardRef(({
   bgColor = COLORS.bg['100'],
   height = 48,
   selectionColor = COLORS.text['000'],
-  Button
+  ContainedButton
 }:TextFieldProps, ref) => {
   const inputRef = React.useRef<TextInput>(null);
   const [value, setValue] = useState('')
@@ -80,7 +80,7 @@ const TextField = forwardRef(({
         onChangeText={text => setValue(text)}
       />
       <>
-        {Button && <Button />}
+        {ContainedButton && <ContainedButton />}
       </>
     </Row>
   )

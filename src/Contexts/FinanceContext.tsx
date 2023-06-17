@@ -1,23 +1,37 @@
 import { createContext, ReactElement, useContext, useEffect, useState } from 'react';
-import CATEGORIES, { Categories, SubCategories } from '../categories';
-import { evaluate, isNumber, isOperand, KeyPadInput, trimmable } from '../utils/CalculatorUtils';
+import mockTransactions from '../Mock/mockTransactions';
+import { listenTransactions } from '../Service/TransactionService';
+import { Transaction } from '../Types/Transaction';
 
-export type Operator = '+' | '-' | '*' | '/'
-
-export const FinanceContext = createContext({
-  
-})
-
-interface FinanceProviderProps {
-  children: ReactElement
+const DEFAULT_STATES = {
+  transactions: [] as Transaction[],
+  setTransactions: (transaction: any) => {},
+  isLoading: true,
+  setIsLoading: (isLoading: boolean) => {}
 }
 
-export const FinanceProvider = ({children}:FinanceProviderProps) => {
-  const [transactions, setTransactions] = useState([])
-  
+export const FinanceContext = createContext(DEFAULT_STATES)
+
+export const FinanceProvider = ({children}:{ children: ReactElement }) => {
+  const [transactions, setTransactions] = useState<Transaction[]>([...DEFAULT_STATES.transactions])
+  const [isLoading, setIsLoading] = useState(DEFAULT_STATES.isLoading)
+
+  useEffect(() => {
+    const unsubscribe = listenTransactions((transactions: Transaction[]) => {
+      if(isLoading) setIsLoading(false)
+      console.log('setting transactions', transactions.length)
+      setTransactions([...transactions])
+    })
+    return () => unsubscribe()
+  }, [])
+
   return (
     <FinanceContext.Provider
       value={{
+        transactions,
+        setTransactions,
+        isLoading,
+        setIsLoading
       }}
     >
       {children}

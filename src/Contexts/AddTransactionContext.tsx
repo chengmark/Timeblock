@@ -1,6 +1,11 @@
+import { useNavigation } from "@react-navigation/native";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import CATEGORIES, { Categories, SubCategories } from "../categories";
 import { evaluate, isNumber, isOperand, KeyPadInput, trimmable } from "../utils/CalculatorUtils";
+import { useFinanceContext } from "./FinanceContext";
+import { addTransaction as addToDB } from "../Service/TransactionService";
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from "uuid";
 
 const DEFAULT_STATES = {
   inputStack: [] as KeyPadInput[],
@@ -15,24 +20,19 @@ const DEFAULT_STATES = {
   setShowSelectCategoryDialog: (showSelectCategoryDialog: boolean) => {},
   showCreateSubCategoryDialog: false,
   setShowCreateSubCategoryDialog: (showCreateSubCategoryDialog: boolean) => {},
+  addTransaction: () => {},
 }
 
 const AddTransactionContext = createContext(DEFAULT_STATES)
 
-interface AddTransactionContextProviderProps {
-  children: ReactNode
-}
-
-const AddTransactionContextProvider = ({children}: AddTransactionContextProviderProps) => {
+const AddTransactionContextProvider = ({children}: { children: ReactNode }) => {
   const [inputStack, setInputStack] = useState<KeyPadInput[]>(DEFAULT_STATES.inputStack)
   const [selectedCategory, setSelectedCategory] = useState<Categories>(DEFAULT_STATES.selectedCategory)
   const [selectedSubCategory, setSelectedSubCategory] = useState<SubCategories>(DEFAULT_STATES.selectedSubCategory)
   const [showSelectCategoryDialog, setShowSelectCategoryDialog] = useState(false)
   const [showCreateSubCategoryDialog, setShowCreateSubCategoryDialog] = useState(false)
-
-  useEffect(() => {
-    console.log(showCreateSubCategoryDialog);
-  }, [showCreateSubCategoryDialog])
+  const { transactions, setTransactions } = useFinanceContext()
+  const nav = useNavigation()
   
   useEffect(() => {
     // auto select default subCategory when category change
@@ -40,11 +40,9 @@ const AddTransactionContextProvider = ({children}: AddTransactionContextProvider
   }, [selectedCategory])
 
   const put = (input: KeyPadInput) => {
-    console.log('put', input);
     const newStack = inputStack
     if(isOperand(input) && inputStack.length === 0) return
     if(isOperand(newStack.at(-1)) && isOperand(input)) newStack.pop() // input is operand and last input is operand, then remove the last operand
-    console.log(trimmable(inputStack), isNumber(input), input)
     if(trimmable(inputStack) && isNumber(input)) newStack.pop() // if input stack has leading zero to trim, then remove the leading zero
     newStack.push(input)
     setInputStack([...newStack])
@@ -62,6 +60,27 @@ const AddTransactionContextProvider = ({children}: AddTransactionContextProvider
     setInputStack([...evaluate(inputStack).toString()].map(Number))
   }
 
+  const addTransaction = () => {
+    // setTransactions([...transactions, {
+    //   amount: evaluate(inputStack),
+    //   title: '',
+    //   description: '',
+    //   date: new Date().toISOString(),
+    //   category: selectedCategory,
+    //   subCategory: selectedSubCategory,
+    // }])
+    addToDB({
+      id: uuidv4(),
+      amount: evaluate(inputStack),
+      title: '',
+      description: '',
+      date: new Date().toISOString(),
+      category: selectedCategory,
+      subCategory: selectedSubCategory,
+    })
+    nav.goBack()
+  }
+
   return (
     <AddTransactionContext.Provider
       value={{
@@ -76,7 +95,8 @@ const AddTransactionContextProvider = ({children}: AddTransactionContextProvider
         showSelectCategoryDialog,
         setShowSelectCategoryDialog,
         showCreateSubCategoryDialog,
-        setShowCreateSubCategoryDialog
+        setShowCreateSubCategoryDialog,
+        addTransaction
       }}
     >
       {children}

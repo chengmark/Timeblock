@@ -35,7 +35,7 @@ const CompleteKey = ({onPress}:{onPress: () => void}) => (
 )
 
 const KeyPad = () => {
-  const {pop, put, equalTo, selectedCategory, setShowSelectCategoryDialog} = useAddTransactionContext()
+  const {pop, put, equalTo, selectedCategory, setShowSelectCategoryDialog, addTransaction} = useAddTransactionContext()
   // from an amount to an array of digits
   // e.g., 0.00 => [0, 0, 0], 10.12 => [1, 0, 1, 2]
 
@@ -68,7 +68,7 @@ const KeyPad = () => {
       </Row>
       <Row gap={0.625}>
         <CategoryKey value={selectedCategory} onPress={() => setShowSelectCategoryDialog(true)}/>
-        <CompleteKey onPress={() => equalTo()}/>
+        <CompleteKey onPress={() => addTransaction()}/>
       </Row>
     </Col>
   )

@@ -36,7 +36,7 @@ export const boxStyle = ({p=0, px=0, py=0,  m=0, mx=0, my=0, expand=false, round
     rounded && !isLayoutArray(rounded) ? tw`rounded-${rounded}`: tw``,
     rounded && isTLtoTR(rounded) ? tw`rounded-tr-${rounded[0]} rounded-br-${rounded[1]} rounded-bl-${rounded[2]} rounded-tl-${rounded[3]}`: tw``, //TODO: logic for rounded corners
     bg ? tw`bg-[${bg}]`: tw``,
-    border && hasNElements(border, 2) ? tw`border-${border[0]} border-[${border[1]}]`: tw``,
+    border && hasNElements(border, 2) ? tw`border-${border[0]} border-[${border[1]}]`: tw``, // width + color
     gap ? tw`gap-${gap}` : tw``,
     style
   ]))

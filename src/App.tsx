@@ -1,5 +1,5 @@
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
-import { StatusBar } from "react-native";
+import { LogBox, StatusBar } from "react-native";
 import COLORS from "./Colors";
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import tw from 'twrnc'
@@ -22,6 +22,14 @@ const theme = {
   ...DefaultTheme,
   colors:{...DefaultTheme.colors, background: COLORS.bg['000']}
 }
+
+signInWithEmailAndPassword(auth, 'default@gmail.com', '9e0a5b0e-0c15-4712-bf0e-e19716f16a55')
+
+onAuthStateChanged(auth, (user) => {
+  // console.log(user)
+})
+
+LogBox.ignoreLogs(['VirtualizedLists'])
 
 const App = () => {
   return (

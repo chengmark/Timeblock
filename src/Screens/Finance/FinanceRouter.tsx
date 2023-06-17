@@ -6,11 +6,12 @@ import withProvider from '../../Hoc/withProvider'
 import { Transaction } from '../../Types/Transaction'
 import AddTransactionScreen from './AddTransactionScreen'
 import FinanceScreen from './FinanceScreen'
+import TransactionDetailScreen from './TransactionDetailScreen'
 
-export interface FinanceStackParamList{
+export type FinanceStackParamList = {
   FinanceHome: undefined
   AddTransaction: undefined
-  // TransactionDetails: {transaction: Transaction}
+  TransactionDetail: {transaction: Transaction}
   // Day:{calendarItems:CalendarItem[], day: string} | undefined
 }
 
@@ -18,16 +19,16 @@ const Stack = createNativeStackNavigator<FinanceStackParamList>()
 
 const FinanceRouter = () => {
   const navigation = useNavigation()
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      navigation.reset({
-        index: 0,
-        routes: [{name: 'FinanceHome'}],
-      })
-    })
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener('focus', () => {
+  //     navigation.reset({
+  //       index: 0,
+  //       routes: [{name: 'FinanceHome'}],
+  //     })
+  //   })
 
-    return unsubscribe
-  }, [])
+  //   return unsubscribe
+  // }, [])
 
   return (
     <Stack.Navigator
@@ -39,6 +40,7 @@ const FinanceRouter = () => {
     >
       <Stack.Screen name="FinanceHome" component={FinanceScreen} />
       <Stack.Screen name="AddTransaction" component={AddTransactionScreen} />
+      <Stack.Screen name="TransactionDetail" component={TransactionDetailScreen} />
       {/* <Stack.Screen name="TransactionDetails" component={TransactionDetailsScreen} /> */}
     </Stack.Navigator>
   )
