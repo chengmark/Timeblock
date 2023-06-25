@@ -9,6 +9,8 @@ import { evaluable, evaluate } from "../../../utils/CalculatorUtils"
 import { useMemo } from "react"
 import { useAddTransactionContext } from "../../../Contexts/AddTransactionContext"
 import { useCalculatorContextContext } from "../../../Contexts/CalculatorContext"
+import { getTransactions } from "../../../Service/TransactionService"
+import { useAddBudgetContext } from "../../../Contexts/AddBudgetContext"
 
 const TextBlock = ({title, subTitle, color, }: {title: string, subTitle: string, color:string}) => {
   return (
@@ -25,12 +27,12 @@ const TextBlock = ({title, subTitle, color, }: {title: string, subTitle: string,
 
 const BudgetBar = () => {
   const { inputStack } = useCalculatorContextContext()
+  const { used } = useAddBudgetContext()
   const value = useMemo(() => evaluate(inputStack) || 0, [inputStack])
-  const total = 0
-  const used = value
-  const usedPercent = (used / total * 100) || 0
-  const left = total - used
-  const leftPercent = (left / total * 100) || 0
+  const total = value
+  const usedPercent = total === 0 ? '-' : used / total * 100
+  const left = total === 0 ? '-' : total - used
+  const leftPercent = total === 0 ? '-' : left || 0 / total * 100
   const windowWidth = Dimensions.get('window').width
   const progress = (used / total) * windowWidth || 0
   const isOverBudget = left <= 0 
@@ -50,12 +52,12 @@ const BudgetBar = () => {
       <Row justify="between">
         <TextBlock
           title={`${used.toLocaleString()} HKD`}
-          subTitle={`${usedPercent.toLocaleString()}% USED`}
+          subTitle={`${usedPercent.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}% USED`}
           color={COLORS.text['000']}
         />
         <TextBlock
           title={`${left.toLocaleString()} HKD`}
-          subTitle={`${leftPercent.toLocaleString()}% LEFT`}
+          subTitle={`${leftPercent.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}% LEFT`}
           color={isOverBudget ? COLORS.text['000'] : COLORS.text.green}
         />
       </Row>

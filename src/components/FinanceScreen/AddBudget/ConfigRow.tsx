@@ -11,6 +11,7 @@ import { useMemo } from "react"
 import { getSubCategories } from "../../../categories"
 import { useAddTransactionContext } from "../../../Contexts/AddTransactionContext"
 import { FlatList, View } from "react-native"
+import { useAddBudgetContext } from "../../../Contexts/AddBudgetContext"
 
 interface SubCategoryBadgeProps {
   icon?: string
@@ -34,7 +35,7 @@ const ConfigBadge = ({icon, title, onPress}: SubCategoryBadgeProps) =>
   />
 
 const ConfigRow = () => {
-  const { selectedCategory, selectedSubCategory, setSelectedSubCategory, setShowCreateSubCategoryDialog, setShowSelectCategoryDialog } = useAddTransactionContext()
+  const { selectedCategory, setShowSelectCategoryDialog, selectedInterval, setShowSelectIntervalDialog } = useAddBudgetContext()
   const subCategories = useMemo(() => getSubCategories(selectedCategory), [selectedCategory])
 
   const configActions = [
@@ -44,14 +45,9 @@ const ConfigRow = () => {
       onPress: () => setShowSelectCategoryDialog(true)
     },
     {
-      title: 'DATE:TODAY',
+      title: `INTERVAL:${selectedInterval}`,
       icon: 'event',
-      onPress: () => {} // show calendar picker
-    },
-    {
-      title: 'REPEAT:NONE',
-      icon: 'repeat',
-      onPress: () => {} // show set repeat modal
+      onPress: () => setShowSelectIntervalDialog(true)
     }
   ]
   return (

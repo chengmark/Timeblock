@@ -10,16 +10,28 @@ const TransactionButton = ({...iconButtonProps}: TransactionButtonProps) => {
   const nav = useNavigation<NavigationProp<FinanceStackParamList>>()
 
   return (
-    <IconButton
-      Component={MaterialCommunity}
-      name="swap-vertical"
-      size={32}
-      color={COLORS.text['000']}
-      bg={COLORS.brand.primary}
-      p={2.5}
-      onPress={() => nav.navigate('AddTransaction')}
-      {...iconButtonProps}
-    />
+    <>
+      <IconButton
+        Component={MaterialCommunity}
+        name="swap-vertical"
+        size={32}
+        color={COLORS.text['000']}
+        bg={COLORS.brand.primary}
+        p={2.5}
+        onPress={() => nav.navigate('AddTransaction')}
+        {...iconButtonProps}
+      />
+      <IconButton
+        Component={MaterialCommunity}
+        name="swap-vertical"
+        size={32}
+        color={COLORS.text['000']}
+        bg={COLORS.brand.primary}
+        p={2.5}
+        onPress={() => nav.navigate('AddBudget')}
+        {...iconButtonProps}
+      />
+    </>
   ) 
 }
 

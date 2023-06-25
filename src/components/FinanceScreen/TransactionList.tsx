@@ -25,7 +25,7 @@ const TransactionItem = ({ transaction }: { transaction: Transaction }) =>
         <Row justify='between'>
           <Text color={COLORS.text['000']} size='l' bold expand>{transaction.subCategory.toUpperCase()}</Text>
           <Row gap={1.25}>
-            <Text color={COLORS.text['100']}>-HKD</Text>
+            <Text color={COLORS.text['100']}>{transaction.category === 'income' ? `HKD` : `-HKD`}</Text>
             <Text color={COLORS.text['000']} size='l' bold>{transaction.amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}</Text>
           </Row>
         </Row>

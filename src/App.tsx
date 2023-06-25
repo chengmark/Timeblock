@@ -29,7 +29,7 @@ onAuthStateChanged(auth, (user) => {
   // console.log(user)
 })
 
-LogBox.ignoreLogs(['VirtualizedLists'])
+LogBox.ignoreLogs(['VirtualizedLists']) // TODO: fix this
 
 const App = () => {
   return (

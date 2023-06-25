@@ -9,9 +9,15 @@ import MaterialComunity from 'react-native-vector-icons/MaterialCommunityIcons'
 import Badge from "../Badge";
 import ProgressBar from "../ProgressBar";
 import Chevron from "../Chevron";
+import { useFinanceContext } from "../../Contexts/FinanceContext";
+import { useMemo } from "react";
 
 
 const BudgetSummary = () => {
+  const { transactions, budgets, selectedDisplayInterval } = useFinanceContext()
+  const totalBudget = useMemo(() => budgets.reduce((acc, cur) => acc + cur.amount[selectedDisplayInterval], 0), [budgets])
+  const totalUsed = useMemo(() => transactions.filter(t => t.category !== 'income').reduce((acc, cur) => acc + cur.amount, 0), [transactions])
+  const percentage = (totalUsed / totalBudget * 100)
   return (
     <Col gap={2.5}>
       <Row align='center' justify='between'>
@@ -34,12 +40,12 @@ const BudgetSummary = () => {
               m={[0, 0, 0, 2]}
               rounded={10}
               bg={transparent(0.1, COLORS.cta.green)}
-              Text={() => <Text size='s' bold color={COLORS.cta.green}>18.25%</Text>}
+              Text={() => <Text size='s' bold color={COLORS.cta.green}>{`${percentage.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}%`}</Text>}
             />
           </Row>
           <Row>
             <Text color={COLORS.text['100']} bold>LEFT: </Text>
-            <Text bold>2,437.60 HKD</Text>
+            <Text bold>{`${(totalBudget - totalUsed).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} HKD`}</Text>
           </Row>
         </Row>
 
@@ -47,18 +53,18 @@ const BudgetSummary = () => {
           <ProgressBar
             bgColor={transparent(0.1, COLORS.cta.green)}
             progressColor={COLORS.cta.green}
-            progress={18.25}
+            progress={percentage}
           />
         </Row>
 
         <Row align="center" justify="between">
           <Row align="center" expand>
             <Text color={COLORS.text['100']} bold>USED: </Text>
-            <Text bold>562.40 HKD</Text>
+            <Text bold>{`${totalUsed.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} HKD`}</Text>
           </Row>
           <Row>
             <Text color={COLORS.text['100']} bold>TOTAL: </Text>
-            <Text bold>3,000.00 HKD</Text>
+            <Text bold>{`${totalBudget.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} HKD`}</Text>
           </Row>
         </Row>
       </Col>

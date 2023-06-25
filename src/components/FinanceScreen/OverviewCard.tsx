@@ -12,8 +12,14 @@ import { FlexBoxStyle } from '../Base/FlexBox';
 import Icon from '../Icon';
 import ProgressBar from '../ProgressBar';
 import { View } from 'react-native';
+import { useFinanceContext } from '../../Contexts/FinanceContext';
+import { useMemo } from 'react';
+import { startOfWeek, addDays, isSameDay } from 'date-fns';
+import { Transaction } from '../../Types/Transaction';
 
 const BalanceRow = () => {
+  const { transactions, getBalance } = useFinanceContext()
+  const balance = useMemo(() => getBalance().toLocaleString('en-US', {minimumFractionDigits: 2}), [transactions])
   return (
     <Col>
       <Row>
@@ -21,7 +27,7 @@ const BalanceRow = () => {
       </Row>
       <Row align='end' justify="between">
         <Row expand gap={2}>
-          <Text size='l' bold>12,437.60</Text>
+          <Text size='l' bold>{balance}</Text>
           <Text>HKD</Text>
         </Row>
         <Row>
@@ -34,7 +40,9 @@ const BalanceRow = () => {
 
 const SPENDINGS = [200, 400, 1000, 900, 900, 900, 900]
 const WEEKDAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
-const isToday = (weekday: string) => WEEKDAYS[new Date().getDay()] === weekday
+const today = new Date().getDay()
+const adjustedToday = today === 0 ? 6 : today - 1
+const isToday = (weekday: string) => WEEKDAYS[adjustedToday] === weekday
 
 const ChartBar = ({isToday}:{isToday: boolean}) => (
   <View style={[
@@ -44,6 +52,24 @@ const ChartBar = ({isToday}:{isToday: boolean}) => (
 )
 
 const SpendingChart = () => {
+  const {transactions} = useFinanceContext()
+  const getCurrentWeekSpendings = (transactions: Transaction[]): number[] => {
+    const now = new Date();
+    const startOfCurrentWeek = startOfWeek(now, { weekStartsOn: 1 }); // assuming Monday is the start of the week
+    const spendings: number[] = [0, 0, 0, 0, 0, 0, 0];
+
+    transactions.forEach((transaction) => {
+      const transactionDate = new Date(transaction.date);
+      if (transactionDate >= startOfCurrentWeek && isSameDay(transactionDate, now) === false) {
+        const dayOfWeek = transactionDate.getDay() === 0 ? 6 : transactionDate.getDay() - 1; // adjust for Sunday being index 0
+        spendings[dayOfWeek] += transaction.amount;
+      }
+    });
+
+    return spendings;
+  }
+  const spendings = useMemo(() => getCurrentWeekSpendings(transactions), [transactions])
+  
   return (
     <Col
       bg={COLORS.bg['300']}
@@ -66,9 +92,13 @@ const SpendingChart = () => {
             const color = isToday(weekday) ? COLORS.text['000'] : COLORS.text['100']
             return (
               <Col key={i} expand align='center' gap={0.625}>
-                <Text bold={bold} color={color} center> {SPENDINGS[i]} </Text>
+                <Text bold={bold} color={color} center>
+                  {spendings[i].toString()}
+                </Text>
                 <ChartBar isToday={bold}/>
-                <Text bold={bold} color={color} center> {weekday} </Text>
+                <Text bold={bold} color={color} center>
+                  {weekday}
+                </Text>
               </Col>
             )
           })

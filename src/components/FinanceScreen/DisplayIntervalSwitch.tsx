@@ -6,6 +6,8 @@ import tw from 'twrnc'
 import COLORS from "../../Colors"
 import Col from "../Col"
 import { useState } from "react"
+import { DisplayInterval } from '../../Types/Finance'
+import { useFinanceContext } from "../../Contexts/FinanceContext"
 
 interface DisplayIntervalSwitchProps {
 
@@ -23,23 +25,24 @@ const Option = ({selected=false, rounded=[0,0,0,0], text, onPress}: {selected?: 
     <Text center bold>{text}</Text>
   </Box>
 )
-const OPTIONS = ['DAILY', 'MONTHLY', 'YEARLY']
+// const OPTIONS = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY']
+const OPTIONS = ['daily', 'weekly', 'monthly']
 const DisplayIntervalSwitch = (props: DisplayIntervalSwitchProps) => {
-  const [selected, setSelected] = useState(0)
+  const {selectedDisplayInterval, setSelectedDisplayInterval} = useFinanceContext()
   return (
     <Col gap={2.5}>
       <Row align='center' justify='between'>
-        <Text bold expand color={COLORS.text['100']} >DISPLAY INTERVAL</Text>
+        <Text bold expand color={COLORS.text['100']}>DISPLAY INTERVAL</Text>
       </Row>
       <Row rounded={1.25}>
         {
           OPTIONS.map((option, index) => (
             <Option
               key={index}
-              selected={selected === index}
+              selected={selectedDisplayInterval === option}
               rounded={index === 0 ? [0, 0, 1.25, 1.25] : index === OPTIONS.length - 1 ? [1.25, 1.25, 0, 0] : [0, 0, 0, 0]}
-              text={option}
-              onPress={() => setSelected(index)}
+              text={option.toUpperCase()}
+            onPress={() => setSelectedDisplayInterval(option as DisplayInterval)}
             />
           ))
         }

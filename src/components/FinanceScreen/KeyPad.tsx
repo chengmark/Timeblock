@@ -1,16 +1,17 @@
 import tw from 'twrnc'
-import COLORS from '../../../Colors'
-import Box from '../../Base/Box'
-import Col from '../../Col'
-import Icon from '../../Icon'
-import Row from '../../Row'
-import Text from '../../Text'
+import COLORS from '../../Colors'
+import Box from '../Base/Box'
+import Col from '../Col'
+import Icon from '../Icon'
+import Row from '../Row'
+import Text from '../Text'
 
 import Material from 'react-native-vector-icons/MaterialIcons'
-import { KeyPadInput } from '../../../utils/CalculatorUtils'
-import FlexBox from '../../Base/FlexBox'
-import CATEGORIES, { getCategoryIcon } from '../../../categories'
-import { useAddTransactionContext } from '../../../Contexts/AddTransactionContext'
+import { KeyPadInput } from '../../utils/CalculatorUtils'
+import FlexBox from '../Base/FlexBox'
+import CATEGORIES, { getCategoryIcon } from '../../categories'
+import { useAddTransactionContext } from '../../Contexts/AddTransactionContext'
+import { useCalculatorContextContext } from '../../Contexts/CalculatorContext'
 
 const Key = ({value, onPress}: {value: string, onPress: () => void}) => (
   <FlexBox p={[0.625, 1.25]} bg={COLORS.bg['400']} rounded={1.25} expand onPress={onPress} style={tw`h-[48px]`} justify='center' align='center'>
@@ -19,14 +20,6 @@ const Key = ({value, onPress}: {value: string, onPress: () => void}) => (
     </Text>
   </FlexBox>
 )
-const CategoryKey = ({value, onPress}: {value: keyof typeof CATEGORIES, onPress: () => void}) => (
-  <Row gap={1.25} justify='center' align='center' p={[0.625, 1.25]} bg={COLORS.brand.primary} rounded={1.25} expand style={tw`h-[48px]`} onPress={onPress}>
-    <Icon Component={Material} name={getCategoryIcon(value)} size={24} color={COLORS.text['000']} />
-    <Text color={COLORS.text['000']} size='l' center bold>
-      {value.toUpperCase()}
-    </Text>
-  </Row>
-)
 
 const CompleteKey = ({onPress}:{onPress: () => void}) => (
   <Row justify='center' align='center' p={[0.625, 1.25]} bg={COLORS.brand.primary} rounded={1.25} expand onPress={onPress} style={tw`h-[48px]`}>
@@ -34,8 +27,16 @@ const CompleteKey = ({onPress}:{onPress: () => void}) => (
   </Row>
 )
 
-const KeyPad = () => {
-  const {pop, put, equalTo, selectedCategory, setShowSelectCategoryDialog, addTransaction} = useAddTransactionContext()
+const EqualKey = ({onPress}:{onPress: () => void}) => (
+  <Row justify='center' align='center' p={[0.625, 1.25]} bg={COLORS.brand.primary} rounded={1.25} expand onPress={onPress} style={tw`h-[48px]`}>
+    <Text color={COLORS.text['000']} size='l' center bold>
+      =
+    </Text>
+  </Row>
+)
+
+const KeyPad = ({onSubmit}:{onSubmit:() => void}) => {
+  const { pop, put, equalTo } = useCalculatorContextContext()
   // from an amount to an array of digits
   // e.g., 0.00 => [0, 0, 0], 10.12 => [1, 0, 1, 2]
 
@@ -67,8 +68,8 @@ const KeyPad = () => {
         <Key value="/" onPress={() => put(KeyPadInput.DIVIDE)}/>
       </Row>
       <Row gap={0.625}>
-        <CategoryKey value={selectedCategory} onPress={() => setShowSelectCategoryDialog(true)}/>
-        <CompleteKey onPress={() => addTransaction()}/>
+        <CompleteKey onPress={() => onSubmit()}/>
+        <EqualKey onPress={() => equalTo()}/>
       </Row>
     </Col>
   )

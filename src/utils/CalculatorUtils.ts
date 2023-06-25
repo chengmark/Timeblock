@@ -30,6 +30,11 @@ export const evaluate = (stack: KeyPadInput[]):number => {
   else return evaluate(stack.slice(0, -1))
 }
 
+export const toInputStack = (amount:number): KeyPadInput[] => {
+  const amountStr = amount.toString()
+  return amountStr.split('').map(x => isNumber(parseInt(x)) ? parseInt(x) : x) as KeyPadInput[]
+}
+
 export const toDisplayString = (inputStack: KeyPadInput[]): string => {
   if (inputStack.length === 0) {
     return '0.0';

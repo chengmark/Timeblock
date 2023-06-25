@@ -64,6 +64,20 @@ const CATEGORIES = {
         icon: 'phone-android'
       },
     ]
+  },
+  income: {
+    title: 'income',
+    icon: 'monetization-on',
+    subCategories: [
+      {
+        title: 'salary',
+        icon: 'local-atm'
+      },
+      {
+        title: 'voucher',
+        icon: 'payment'
+      }
+    ]
   }
 }
 

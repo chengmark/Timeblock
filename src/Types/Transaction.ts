@@ -11,10 +11,17 @@ export interface Transaction {
 }
 
 export interface Budget {
-  category: ExpenseCategory;
-  amount: number;
+  id: string;
+  category: Categories;
+  amount: {
+    daily: number
+    weekly: number
+    monthly: number
+  }
   date: string;
 }
+
+export type Interval = 'DAILY' | 'WEEKLY' | 'MONTHLY'
 
 export type ExpenseCategory = "Food" | "Entertainment" | "Transportation" | "Housing" | "Repayment" | "Tax" | "Others";
 

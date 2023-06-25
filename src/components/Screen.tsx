@@ -23,7 +23,7 @@ const Screen = ({ children }: ScreenProps) => {
       bg={COLORS.bg[100]}
       rounded={0}
       style={[
-        tw`min-h-[540px]`, // TODO adjust to screen height minus some offsets
+        tw`min-h-[100%]`, // TODO adjust to screen height minus some offsets
       ]}
       gap={2.5}
     >

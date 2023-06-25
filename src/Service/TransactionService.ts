@@ -12,6 +12,7 @@ export const addTransaction = async (transaction: Transaction) => {
 
 export const listenTransactions = (onValueHandler?: (transaction: Transaction[]) => void):Unsubscribe => {
   const unsubscribe = onValue(ref(db, path), (snapshot) => {
+    // empty transactions return a snapshot that its json() is null
     if(!snapshot.exists()) return onValueHandler?.([])
     const data = snapshot?.val()
     console.log('listen transactions:', Object.values(data));
