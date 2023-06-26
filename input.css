@@ -1,1 +1,14 @@
 @tailwind utilities;
+
+
+.colors{
+  background: #000; /* 100 */
+  background: #191919; /* 200 */
+  background: #202020; /* 300 */
+  background: #252525; /* 400 */
+  background: #2f2f2f; /* 500 */
+  background: #7f7f7f; /* 600 */
+  background: #868686; /* 700 */
+  background: #d4d4d4; /* 800 */
+  background: #FFFFFF; /* 900 */
+}

@@ -1,15 +1,11 @@
-import { View } from "react-native"
 import tw from 'twrnc'
-import Colors from "../Colors"
+import COLORS from '../Colors';
+import Box, { BoxProps } from "./Base/Box";
 
-interface DividerProps{
-  className?:string
-}
+interface DividerProps extends BoxProps {}
 
-const Divider = ({className}:DividerProps) => {
-  return (
-    <View style={tw`w-full bg-[${Colors.bg.secondary}] h-0.5 ${className || ""}`}></View>
-  )
-}
+const Divider = ({bg=COLORS.bg['100'], ...rest}: DividerProps) => (
+  <Box style={tw`h-[2px] w-full`} bg={bg} {...rest}/>
+)
 
 export default Divider

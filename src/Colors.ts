@@ -1,54 +1,52 @@
 // get the color scheme from iOS calendar app
+const transparentnessMap:Record<string, string> = {
+  '0.1': '25', // 0.1 * 255 = 25
+  '0.2': '33', // 0.2 * 255 = 51
+  '0.3': '4c', // 0.3 * 255 = 76
+  '0.4': '66', // 0.4 * 255 = 102
+  '0.5': '7f', // 0.5 * 255 = 127
+  '0.6': '99', // 0.6 * 255 = 153
+  '0.7': 'b2', // 0.7 * 255 = 178
+  '0.8': 'cc', // 0.8 * 255 = 204
+  '0.9': 'e5', // 0.9 * 255 = 229
+  '1': 'ff', // 1 * 255 = 255
+};
 
+const LABEL_BG_TRANSPARENTNESS = '0.2';
 
-const Colors = {
-  'bg':{
-    'base':'#000000', // dark
-    // 'primary':'#1F1C1C', // dark grey
-    'primary':'#000000', // dark grey
-    'secondary':'#242425' // grey
+export const transparent = (transparentness: number, color: string) => color + transparentnessMap[transparentness];
+
+const COLORS = {
+  cta: {
+    red: '#FF453A',
+    green: '#35C989',
+    blue: '#0A84FF',
+    yellow: '#FFD60A',
   },
-  'font': {
-    'primary':'#FFFFFF', // white
-    'secondary':'#7C7C7B', // grey
-    'holiday':'#B03F3A', // red
-    'today':'#000000' // black
+  text: {
+    '000':'#FFFFFF',
+    '100': '#DCDDDE',
+    '200': '#B9BBBE',
+    'green': '#72FFC2',
   },
-  'event':{
-    'blue':"#3D7DAF",
-    'green':"#519E72"
+  bg: {
+    '000': '#000000',
+    '100': '#202225',
+    '200': '#292B2F',
+    '300': '#36393F',
+    '400': '#393C43',
+    '500': '#4F545C',
+    '600': '#5D6269'
   },
-  'button':{
-    'bg':'#232324',
-    'text':'#FFFFFF',
-    'active':'#3F4140', 
+  brand: {
+    primary: '#5865F2',
+    secondary: '#949CF7',
+    pressed: '#4752C4',
+    tmp: transparent(0.9, '#5865F2')
   },
-  'black':'#000000',
-  'white':'#FFFFFF',
-  'red':'#FF453A',
-  'orange':'#FF9F0A',
-  'yellow':'#FFD60A',
-  'green':'#32D74B',
-  'teal':'#64D2FF',
-  'blue':'#0A84FF',
-  'indigo':'#5E5CE6',
-  'purple':'#BF5AF2',
-  'pink':'#FF2D55',
-  'grey':{
-    1:'#8E8E93',
-    2:'#636366',
-    3:'#48484A',
-    4:'#3A3A3C',
-    5:'#2C2C2E',
-    6:'#1C1C1E',
-  },
-  'text':{
-    'primary':'#FFFFFF',
-    'secondary':'#EBEBF555',
+  gradient: {
+    blueToPurple: ['#3F70DD', '#B377F3']
   }
-
-
 }
-export default Colors
 
-export const transparent = (transparentness:number, color: string) => color + Math.floor(transparentness * 255).toString()
+export default COLORS;
